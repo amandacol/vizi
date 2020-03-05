@@ -20,6 +20,8 @@
     <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
   </div>
 </div>
+    <% if policy(Item).create? %>
+     <%= link_to "Add your item!", new_item_path, class: "btn btn-warning btn-lg"%>
+    <% end %>
+  </form>
 </div>
-
-
