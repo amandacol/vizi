@@ -1,0 +1,15 @@
+<div class="container text-center mt-4">
+<h2 class="mb-4">Have a look at the sports items by our community!</h2>
+<form>
+    <div class="search-form-control form-group">
+        <%= form_tag items_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find an item"
+        %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </form>
+</div>
