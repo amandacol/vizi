@@ -1,6 +1,12 @@
 .navbar-lewagon {
+  color: white;
   justify-content: space-between;
-  background: white;
+  background: $blue;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.navbar-lewagon a {
+  color: white;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -9,4 +15,24 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+#logo {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 42px;
+  line-height: 140.62%;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.08em;
+
+  color: #FFFFFF;
+}
+
+#logo:hover {
+  text-decoration: none;
 }

@@ -1,0 +1,11 @@
+.btn-vizi {
+  color: $darkgray;
+  border: 3px solid #6DC3C3;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+}
+
+.btn-vizi:hover {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
