@@ -9,7 +9,17 @@
           placeholder: "Find an item"
         %>
       <%= submit_tag "Search", class: "btn btn-primary" %>
+
+
       <% end %>
     </div>
+
+    <% if policy(Item).create? %>
+     <%= link_to "Add your item!", new_item_path, class: "btn btn-warning btn-lg"%>
+    <% end %>
+
   </form>
 </div>
+
+
+
