@@ -1,6 +1,22 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+before_action :set_item, only: [:show, :edit, :update, :destroy]
+  
+  def new
+    @items = Item.new
+    authorize @item
+  end
 
+  def create
+    @item = Item.find(params[:item_id])
+    @item = Item.new
+    authorize @item
+    @order.item = @item
+    @order.user = current_user
+    @order.date = Time.now
+    @order.save
+    redirect_to items_path, notice: "Successfully added to cart!"
+  end
+  
   def index
     if params[:query].present?
       @items = policy_scope(Item).search_by_name_and_description(params[:query])
