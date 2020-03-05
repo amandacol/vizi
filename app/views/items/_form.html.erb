@@ -1,0 +1,38 @@
+<div class="container text-center rounded">
+   <div class="row">
+    <div class="col-sm-6 offset-sm-3 bg-primary rounded p-3" style="box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+
+  <%= simple_form_for @item do |f| %>
+
+    <div>
+      <%= f.input :name %>
+    </div>
+    <div>
+     <%= f.input :sport %>
+    </div>
+    <div>
+     <%= f.input :transaction_type %>
+    </div>
+    <div>
+     <%= f.input :start_date %>
+    </div>
+    <div>
+     <%= f.input :end_date %>
+    </div>
+    <div>
+     <%= f.input :size %>
+    </div>
+    <div>
+     <%= f.input :price %>
+    </div>
+    <div>
+     <%#= f.input :photo, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: '📷 Upload a photo' %>
+    </div>
+
+    <div>
+      <%= f.submit "button test", class: 'btn btn-warning mb-1' %>
+    </div>
+  <% end %>
+</div>
+</div>
+</div>
