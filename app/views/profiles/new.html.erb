@@ -1,6 +1,9 @@
 <div class="container mt-5"><h4>Just some more information</h4>
 
 <%= simple_form_for @profile, url: profiles_path, method: :post do |f|%>
+  <%= f.input :photo, as: :file %>
+  <%= f.input :description %>
+  <%= f.submit 'Complete your registration', class: 'btn btn-primary btn-block' %>
   <%= f.input :name,
                required: true,
                autofocus: true,
