@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_many :order
+  has_one_attached :photo
 
 
   include PgSearch::Model
