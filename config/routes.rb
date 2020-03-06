@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[new create]
   resources :users, only: [:show]
   resources :items do
-    resources :orders
+    resources :orders, except: :index
   end
+  resources :orders, only: [:index]
+
 end
