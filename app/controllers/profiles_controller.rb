@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   def create
     @profile = current_user
     if @profile.update(user_params)
-      redirect_to root_path
+      redirect_to items_path
     else
       render :new
     end
