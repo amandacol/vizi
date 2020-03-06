@@ -11,7 +11,7 @@
       <%= f.input :description %>
     </div>
     <div>
-     <%= f.input :sport %>
+     <%= f.association :sport, collection: Sport.all, prompt: "choose a sport" %>
     </div>
     <div>
      <%= f.input :transaction_type %>
