@@ -7,13 +7,16 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new
-    @order.user = current_user
+    @item = Item.new(item_params)
     authorize @item
-    @order.item = @item
-    @order.date = Time.now
-    @order.save
-    redirect_to items_path, notice: "Successfully added to cart!"
+    @item.user = current_user
+
+    if @item.save!
+      redirect_to items_path(@item)
+    else
+      render :new
+    end
+
   end
 
   def index
@@ -23,13 +26,13 @@ class ItemsController < ApplicationController
       @items = policy_scope(Item)
     end
     @items = @items.order(created_at: :desc)
-    @markers = @items.map do |item|
-      {
-        lat: item.latitude,
-        lng: item.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { item: item })
-      }
-    end
+    #@markers = @items.map do |item|
+      #{
+        #lat: item.latitude,
+        #lng: item.longitude,
+        #infoWindow: render_to_string(partial: "info_window", locals: { item: item })
+      #}
+    #end
   end
 
   def show
