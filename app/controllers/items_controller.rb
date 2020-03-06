@@ -13,7 +13,6 @@ class ItemsController < ApplicationController
     @item.latitude = current_user.latitude
     @item.longitude = current_user.longitude
 
-
     if @item.save!
       redirect_to items_path(@item)
     else
@@ -29,13 +28,13 @@ class ItemsController < ApplicationController
       @items = policy_scope(Item)
     end
     @items = @items.order(created_at: :desc)
-    #@markers = @items.map do |item|
-      #{
-        #lat: item.latitude,
-        #lng: item.longitude,
-        #infoWindow: render_to_string(partial: "info_window", locals: { item: item })
-      #}
-    #end
+    @markers = @items.map do |item|
+      {
+        lat: item.latitude,
+        lng: item.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { item: item })
+      }
+    end
   end
 
   def show
@@ -43,13 +42,17 @@ class ItemsController < ApplicationController
     @user = @item.user
   end
 
+  def edit
+  end
+
   def update
     if @item.update(item_params)
-      redirect_to @item
+      redirect_to item_path(@item)
     else
       render :edit
-    end
   end
+  end
+
 
   def destroy
     @item.destroy

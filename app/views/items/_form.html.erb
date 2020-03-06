@@ -8,7 +8,10 @@
       <%= f.input :name %>
     </div>
     <div>
-     <%= f.input :sport %>
+      <%= f.input :description %>
+    </div>
+    <div>
+     <%= f.association :sport, collection: Sport.all, prompt: "choose a sport" %>
     </div>
     <div>
      <%= f.input :transaction_type %>
@@ -30,7 +33,7 @@
     </div>
 
     <div>
-      <%= f.submit "Add item", class: 'btn btn-warning mb-1' %>
+      <%= f.submit "Done!", class: 'btn btn-warning mb-1' %>
     </div>
   <% end %>
 </div>

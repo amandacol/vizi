@@ -25,8 +25,6 @@ class ApplicationController < ActionController::Base
 
     path = new_profile_path unless current_user.valid?
 
-    path = items_path if request.path == root_path
-
     redirect_to path unless path.nil? || path == request.path
   end
 
