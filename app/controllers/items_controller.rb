@@ -22,6 +22,8 @@ class ItemsController < ApplicationController
   end
 
   def index
+    byebug
+    @sports = Sport.all
     if params[:query].present?
       @items = policy_scope(Item).search_by_name_and_description(params[:query])
     else
