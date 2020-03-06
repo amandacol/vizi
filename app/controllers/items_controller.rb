@@ -10,6 +10,9 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     authorize @item
     @item.user = current_user
+    @item.latitude = current_user.latitude
+    @item.longitude = current_user.longitude
+
 
     if @item.save!
       redirect_to items_path(@item)

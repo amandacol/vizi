@@ -4,5 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
   validates :name, :surname, :address, presence: true, on: :update
+
+  # geocoded_by :address
+  # after_validation :geocode, if: :will_save_change_to_address?
+
 end
