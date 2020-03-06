@@ -10,20 +10,20 @@
         <% if @item.photo.attached? %>
           <%= cl_image_tag @item.photo.key, width: 200, height: 200, crop: :fill %>
         <% else %>
-          <img src="https://images.unsplash.com/photo-1570194065650-821cfb9b44a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
+          <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
         <% end %>
-        <h5 class="text-white">This item was made by:</h5>
+        <h5 class="text-white">This item belogs to:</h5>
         <p class="mb-0"><%= @item.user.email %></p>
       </div>
 
       <div class="col-md-6">
-        <h2>Scent</h2>
-        <p><%= @item.scent %></p>
+        <h2>Item</h2>
+        <p><%= @item.name %></p>
 
-        <h2>Properties</h2>
-        <p><%= @item.properties %></p>
+        <h2>Description</h2>
+        <p><%= @item.description %></p>
 
-        <h2>Weight</h2>
+        <h2>Sport</h2>
         <p><%= @item.weight %></p>
         <h2 class="bg-light rounded-sm mt-4 p-2">R$ <%= @item.price %></h2>
       </div>
