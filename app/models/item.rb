@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  belongs_to :sport
   has_many :order
   has_one_attached :photo
 
