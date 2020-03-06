@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-
+  has_one_attached :photo
   validates :name, :surname, :address, presence: true, on: :update
 
   # geocoded_by :address

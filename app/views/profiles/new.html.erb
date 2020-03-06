@@ -4,5 +4,7 @@
   <%= f.input :name %>
   <%= f.input :surname %>
   <%= f.input :address %>
+  <%= f.input :photo, as: :file %>
+  <%= f.input :description %>
   <%= f.submit 'Complete your registration', class: 'btn btn-primary btn-block' %>
 <% end %>

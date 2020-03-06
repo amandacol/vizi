@@ -5,6 +5,9 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    return true
+  end
   def new?
     record
   end
