@@ -1,20 +1,28 @@
 <div class="row">
   <div class="col-4">
     <div class="my-informations">
-      <% if @user.photo.attached? %>
-        <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
-      <% else %>
-        <%= image_tag "user.png", class: "user-image"%>
-      <%end %>
-
+      <div>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
+        <% else %>
+          <%= image_tag "user.png", class: "user-image"%>
+        <%end %>
+        <h3><%="#{@user.name.capitalize} #{@user.surname.capitalize}"%></h3>
+      </div>
       <%= @user.description %>
-      <p>
-      <%="itens lended #{}"%>
-      <%="itens borrowed #{}"%>
-      </p>
+      <div class="cont-items">
+        <p><%="#{} itens lended"%></p>
+        <p><%="#{} itens borrowed"%></p>
+      </div>
       <% if current_user == @user %>
         <div class="edit"><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
       <%end%>
     </div>
+
+
+  </div>
+  <div class="col-8">
+    <%#Espaco para index  %>
+
   </div>
 </div>
