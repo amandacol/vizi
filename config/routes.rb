@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
   resources :items do
     resources :orders, except: :index
+    resources :wishlists, except: :index
   end
   resources :orders, only: [:index]
+  resources :wishlists, only: [:index]
 end

@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
 def index
   @user_items = current_user.items
   @neighbor_orders = current_user.orders
+  @user_wishlists = current_user.wishlists
   if params[:query].present?
       @orders = policy_scope(Order).search_by_name_and_description(params[:query])
     else

@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
   def show
     @order = Order.new
     @user = @item.user
+    @wishlist = Wishlist.new
   end
 
   def edit
