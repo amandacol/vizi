@@ -33,7 +33,7 @@ def index
   def destroy
     @order.destroy
     authorize @order
-    redirect_to items_path
+    redirect_to orders_path
   end
 
   def deliver
