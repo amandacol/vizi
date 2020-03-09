@@ -11,9 +11,9 @@
   <% end %>
 
   <p>Space for dropdown filters: Sports, Location and date</p>
-  <%=form_with(url: items_path, method: :get) do %>
+  <%= simple_form_for :filter, url: items_path, method: :get do |f| %>
     <%= select_tag "sport", options_from_collection_for_select(@sports, "id", "name"), class: "select2", multiple: true %>
-    <%= submit_tag("Filter") %>
+    <%= f.submit "Filter", class: "btn btn-vizi" %>
   <% end %>
 
   <div class="container mt-3 d-flex justify-content-between">

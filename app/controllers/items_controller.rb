@@ -22,13 +22,17 @@ class ItemsController < ApplicationController
   end
 
   def index
-    byebug
     @sports = Sport.all
     if params[:query].present?
       @items = policy_scope(Item).search_by_name_and_description(params[:query])
     else
       @items = policy_scope(Item)
     end
+
+    if params[:sport]
+      @items = @items.joins(:sport).where(sports: {id: params[:sport]})
+    end
+
     @items = @items.order(created_at: :desc)
     @markers = @items.map do |item|
       {
@@ -69,6 +73,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:name, :description, :sport, :transaction_type, :start_date, :end_date, :size, :price, :user_id, :photo)
+    params.require(:item).permit(:name, :description, :sport_id, :transaction_type, :start_date, :end_date, :size, :price, :user_id, :photo)
   end
 end
