@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :profiles, only: %i[new create]
   resources :users, only: [:show]
-  resources :items
-  resources :orders
+  resources :items do
+    resources :orders, except: :index
+  end
+  resources :orders, only: [:index]
+
 end
