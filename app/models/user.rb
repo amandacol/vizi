@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   geocoded_by :address
   has_many :orders
+  has_many :items
 
   has_one_attached :photo
   validates :name, :surname, :address, presence: true, on: :update
