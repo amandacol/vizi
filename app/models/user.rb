@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   geocoded_by :address
-
+  has_many :items, dependent: :destroy
 
   validates :name, :surname, :address, presence: true, on: :update
 

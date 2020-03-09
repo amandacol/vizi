@@ -10,6 +10,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     authorize @item
     @item.user = current_user
+    @item.address = current_user.address
     @item.latitude = current_user.latitude
     @item.longitude = current_user.longitude
 
@@ -32,6 +33,11 @@ class ItemsController < ApplicationController
     if params[:sport]
       @items = @items.joins(:sport).where(sports: {id: params[:sport]})
     end
+
+    if params[:location].present?
+      @items = @items.near(params[:location], params[:distance] || 10, order: :distance)
+    end
+
 
     @items = @items.order(created_at: :desc)
     @markers = @items.map do |item|

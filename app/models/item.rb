@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :order
   has_one_attached :photo
 
+  geocoded_by :address
+
   include PgSearch::Model
   pg_search_scope :search_by_name_and_description,
     against: [ :name, :description, :transaction_type ],
