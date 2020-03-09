@@ -6,6 +6,7 @@ class User < ApplicationRecord
   geocoded_by :address
   has_many :orders
   has_many :items
+  has_many :wishlists
 
   has_one_attached :photo
   validates :name, :surname, :address, presence: true, on: :update

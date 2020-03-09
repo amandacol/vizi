@@ -10,8 +10,9 @@
 </div>
 <nav>
   <div class="nav nav-tabs ml-5" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">It belongs to your neighbor!</a>
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">It belongs to your neighbor</a>
     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">It yours</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Wishlist</a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -55,6 +56,30 @@
       <p><%= item.sport %></p>
       <h2>R$ <%= item.price %></h2>
       <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, item_path(item.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
+      <img src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" class="card-item-user avatar-bordered" />
+    </div>
+  </div>
+</div>
+<%end%>
+</div>
+</div>
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+<div class="cards mt-5 ml-5">
+<% @user_wishlists.each do |wishlist| %>
+  <div class="card-item" >
+    <div class="card-item-display">
+      <% if wishlist.item.photo.attached? %>
+      <%= cl_image_tag wishlist.item.photo.key, width: 200, height: 200, crop: :fill %>
+      <% else %>
+      <img src="https://images.unsplash.com/photo-1531722569936-825d3dd91b15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
+      <% end %>
+  </div>
+  <div class="card-item-hover">
+    <div class="card-item-infos text-center">
+      <h2><%= link_to wishlist.item.name, item_path(wishlist.item)%></h2>
+      <p><%= wishlist.item.sport %></p>
+      <h2>R$ <%= wishlist.item.price %></h2>
+      <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, item_wishlist_path(wishlist.item.id, wishlist.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
       <img src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" class="card-item-user avatar-bordered" />
     </div>
   </div>

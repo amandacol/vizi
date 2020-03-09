@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   belongs_to :sport
   has_many :orders
   has_one_attached :photo
+  has_many :wishlists
 
   include PgSearch::Model
   pg_search_scope :search_by_name_and_description,
