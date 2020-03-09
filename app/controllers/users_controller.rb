@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :index]
+  before_action :set_user, only: [:show]
 
   def show
     @user = User.find(params[:id])
     authorize @user
+    @items = @user.items
   end
 
   def index
