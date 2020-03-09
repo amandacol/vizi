@@ -1,15 +1,21 @@
-<div class="my-informations">
-  <div>
-    <% if @user.photo.attached? %>
-      <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
-    <% else %>
-      <%= image_tag "user.png", class: "user-image"%>
-    <%end %>
+<div class="row">
+  <div class="col-4">
+    <div class="my-informations">
+      <% if @user.photo.attached? %>
+        <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
+      <% else %>
+        <%= image_tag "user.png", class: "user-image"%>
+      <%end %>
+
+      <%= @user.description %>
+      <p>
+      <%="itens lended #{}"%>
+      <%="itens borrowed #{}"%>
+      </p>
+      <% if current_user == @user %>
+        <div><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
+      <%end%>
+    </div>
+
   </div>
-  <div>
-    <p></p>
-  </div>
-  <% if current_user == @user %>
-    <div><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
-  <%end%>
 </div>
