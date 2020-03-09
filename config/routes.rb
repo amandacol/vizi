@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :profiles, only: %i[new create]
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index]
   resources :items do
     resources :orders, except: :index
   end
