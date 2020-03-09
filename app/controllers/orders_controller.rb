@@ -5,11 +5,14 @@ class OrdersController < ApplicationController
     authorize @order
   end
 def index
+  @user_items = current_user.items
+  @neighbor_orders = current_user.orders
   if params[:query].present?
       @orders = policy_scope(Order).search_by_name_and_description(params[:query])
     else
       @orders = policy_scope(Order)
     end
+
     @orders = @orders.order(created_at: :desc)
     # @markers = @orders.map do |order|
     #   {
@@ -20,7 +23,7 @@ def index
     end
 
   def create
-    @item = Item.find(params[:soap_id])
+    @item = Item.find(params[:item_id])
     @order = Order.new
     authorize @order
     @order.item = @item
@@ -33,7 +36,7 @@ def index
   def destroy
     @order.destroy
     authorize @order
-    redirect_to items_path
+    redirect_to orders_path
   end
 
   def deliver
@@ -54,5 +57,10 @@ def index
 
   def order_params
     params.require(:order).permit(:date)
+  end
+
+  def filter_params
+    params[:orders_ids] ||=[] if params.has_key?(:orders_ids)
+    params.permit(order_ids:[])
   end
 end

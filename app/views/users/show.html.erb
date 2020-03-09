@@ -1,16 +1,50 @@
-<div class="my-informations">
-  <% if @user.photo.attached? %>
-    <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
-  <% else %>
-    <%= image_tag "user.png", class: "user-image"%>
-  <%end %>
+<div class="row">
+  <div class="col-4">
+    <div class="my-informations">
+      <div>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill, class: "user-image"%>
+        <% else %>
+          <%= image_tag "user.png", class: "user-image"%>
+        <%end %>
+        <h3><%="#{@user.name.capitalize} #{@user.surname.capitalize}"%></h3>
+      </div>
+      <%= @user.description %>
+      <div class="cont-items">
+        <p><%="#{} itens lended"%></p>
+        <p><%="#{} itens borrowed"%></p>
+      </div>
+      <% if current_user == @user %>
+        <div class="edit"><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
+      <%end%>
+    </div>
 
-  <%= @user.description %>
-  <p>
-  <%="itens lended #{}"%>
-  <%="itens borrowed #{}"%>
-  </p>
-  <% if current_user == @user %>
-    <div><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
-  <%end%>
+
+  </div>
+  <div class="col-8">
+
+    <div class="container mt-3 d-flex justify-content-between">
+        <div class="cards mt-4">
+          <% @items.each do |item| %>
+            <div class="card-item">
+              <div class="card-item-display">
+               <% if item.photo.attached? %>
+                <%= cl_image_tag item.photo.key, width: 200, height: 200, crop: :fill %>
+               <% else %>
+                <img src="https://images.unsplash.com/photo-1531722569936-825d3dd91b15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
+               <% end %>
+              </div>
+              <div class="card-item-hover">
+                <h2><%= link_to item.name, item_path(item)%></h2>
+                <p><%= item.sport %></p>
+                <h2>R$ <%= item.price %></h2>
+                <%= simple_form_for [item, Order.new] do |s|  %>
+                <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
+                <% end %>
+                <img src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" class="card-item-user avatar-bordered" />
+              </div>
+            </div>
+          <%end%>
+        </div>
+  </div>
 </div>

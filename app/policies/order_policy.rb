@@ -5,7 +5,17 @@ class OrderPolicy < ApplicationPolicy
     end
   end
 
-  def index
+  def index?
+    true
+  end
+  def create?
+    true
+  end
+
+  def new?
+    true
+  end
+  def destroy?
     true
   end
 end
