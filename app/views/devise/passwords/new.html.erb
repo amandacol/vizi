@@ -8,9 +8,7 @@
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email", class: 'rounded-pill' } %>
-  <div class="btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
+    <%= f.submit "Send me reset password instructions", class:'form-actions btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill p-2' %>
   </div>
 
 <% end %>

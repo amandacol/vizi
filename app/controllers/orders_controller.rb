@@ -20,7 +20,7 @@ def index
     end
 
   def create
-    @item = Item.find(params[:soap_id])
+    @item = Item.find(params[:item_id])
     @order = Order.new
     authorize @order
     @order.item = @item
