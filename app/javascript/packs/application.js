@@ -6,4 +6,4 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { initMapbox } from '../plugins/init_mapbox';
 initMapbox();
 
-import '../plugins/init_select2'
+import 'plugins/init_select2'
