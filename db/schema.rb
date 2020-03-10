@@ -51,10 +51,6 @@ ActiveRecord::Schema.define(version: 2020_03_10_183102) do
     t.float "longitude"
     t.bigint "sport_id"
     t.integer "price_cents", default: 0, null: false
-    t.string "state"
-    t.string "item_sku"
-    t.integer "amount_cents", default: 0, null: false
-    t.string "checkout_session_id"
     t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -65,6 +61,9 @@ ActiveRecord::Schema.define(version: 2020_03_10_183102) do
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "checkout_session_id"
     t.boolean "delivered", default: false
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

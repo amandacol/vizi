@@ -32,14 +32,14 @@ def index
     @order.date = Time.now
     @order.save
     redirect_to items_path, notice: "Successfully added to cart!"
-    order  = Order.create!(item: item, item_sku: item.sku, amount: item.price, state: 'pending', user: current_user)
+    order  = Order.create!(item: @item, amount: @item.price, state: 'pending', user: current_user)
 
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
       line_items: [{
-        name: item.sku,
-        images: [item.photo_url],
-        amount: item.price_cents,
+        name: @item.name,
+        images: [@item.photo],
+        amount: @item.price_cents,
         currency: 'brl',
         quantity: 1
       }],
@@ -48,7 +48,6 @@ def index
     )
 
     order.update(checkout_session_id: session.id)
-    redirect_to new_order_payment_path(order)
   end
 
   def destroy
