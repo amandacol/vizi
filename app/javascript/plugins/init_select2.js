@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $('.select2').select2({
     tags: true
   });
-  $('.users-sports').select2({
+  $('#user_sport_ids').select2({
     maximumSelectionLength: 5
   });
 })
