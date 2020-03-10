@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_174940) do
+ActiveRecord::Schema.define(version: 2020_03_10_183102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_174940) do
     t.float "latitude"
     t.float "longitude"
     t.bigint "sport_id"
+    t.integer "price_cents", default: 0, null: false
     t.string "address"
     t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
@@ -61,6 +62,10 @@ ActiveRecord::Schema.define(version: 2020_03_10_174940) do
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "checkout_session_id"
+    t.boolean "delivered", default: false
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

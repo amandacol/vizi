@@ -32,6 +32,22 @@ def index
     @order.date = Time.now
     @order.save
     redirect_to items_path, notice: "Successfully added to cart!"
+    order  = Order.create!(item: @item, amount: @item.price, state: 'pending', user: current_user)
+
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: @item.name,
+        images: [@item.photo],
+        amount: @item.price_cents,
+        currency: 'brl',
+        quantity: 1
+      }],
+      success_url: order_url(order),
+      cancel_url: order_url(order)
+    )
+
+    order.update(checkout_session_id: session.id)
   end
 
   def destroy

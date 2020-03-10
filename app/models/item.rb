@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   has_many :orders
   has_one_attached :photo
   has_many :wishlists
+  monetize :price_cents
 
   geocoded_by :address
 
