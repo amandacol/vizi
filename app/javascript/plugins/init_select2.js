@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowClear: true,
     tags: true
   });
-  $('.users-sports').select2({
+  $('#user_sport_ids').select2({
     maximumSelectionLength: 5
   });
 })
