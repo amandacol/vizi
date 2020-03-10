@@ -31,7 +31,6 @@ def index
     @order.user = current_user
     @order.date = Time.now
     @order.save
-    redirect_to items_path, notice: "Successfully added to cart!"
     order  = Order.create!(item: @item, amount: @item.price, state: 'pending', user: current_user)
 
     session = Stripe::Checkout::Session.create(
@@ -43,11 +42,13 @@ def index
         currency: 'brl',
         quantity: 1
       }],
-      success_url: order_url(order),
-      cancel_url: order_url(order)
+      success_url: orders_url,
+      cancel_url: items_url
     )
 
     order.update(checkout_session_id: session.id)
+    redirect_to new_order_payment_path(order)
+
   end
 
   def destroy
