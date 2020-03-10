@@ -81,6 +81,15 @@ ActiveRecord::Schema.define(version: 2020_03_09_204917) do
     t.string "image"
   end
 
+  create_table "user_sports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "sport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_user_sports_on_sport_id"
+    t.index ["user_id"], name: "index_user_sports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,14 +98,13 @@ ActiveRecord::Schema.define(version: 2020_03_09_204917) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "latitude"
-    t.float "longitude"
     t.string "name"
     t.string "surname"
     t.string "address"
     t.string "description"
     t.string "photo"
-    t.string "sport_tag"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -114,6 +122,8 @@ ActiveRecord::Schema.define(version: 2020_03_09_204917) do
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+  add_foreign_key "user_sports", "sports"
+  add_foreign_key "user_sports", "users"
   add_foreign_key "wishlists", "items"
   add_foreign_key "wishlists", "users"
 end
