@@ -4,8 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   geocoded_by :address
+  has_many :items, dependent: :destroy
+
+
   has_many :orders
-  has_many :items
   has_many :wishlists
 
   has_one_attached :photo

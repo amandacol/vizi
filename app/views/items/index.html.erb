@@ -1,20 +1,54 @@
 
 
 <div class="container text-center mt-4">
-  <%= simple_form_for :search, url: items_path, method: :get do |f| %>
-    <div class="search-form-control form-group d-flex">
-      <input class="form-control string required" style="max-width: 770px" type="text" name="query" id="search_query" />
-      <button name="button" type="submit" class="btn btn-primary ml-3">
-        <i class="fas fa-search"></i> Find an item!
-      </button>
-    </div>
-  <% end %>
 
-  <p>Space for dropdown filters: Sports, Location and date</p>
-  <%= simple_form_for :filter, url: items_path, method: :get do |f| %>
-    <%= select_tag "sport", options_from_collection_for_select(@sports, "id", "name"), class: "select2", multiple: true %>
-    <%= f.submit "Filter", class: "btn btn-vizi" %>
-  <% end %>
+  <form>
+    <div class="input-group">
+        <%= form_tag items_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Look for any sport item"
+        %>
+      <%= submit_tag 'Search', class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-between align-items-center mt-3">
+
+    <div class="input-group">
+      <%= simple_form_for :filter, url: items_path, method: :get do |f| %>
+        <%= label :sport, "Filter by sport : ", class: "input-group-prepend" %>
+        <%= select_tag "sport",
+        options_from_collection_for_select(@sports, "id", "name"),
+        class: "select2 form-control",
+        multiple: true
+        %>
+        <%= f.submit "Filter", class: "btn btn-vizi" %>
+      <% end %>
+    </div>
+
+
+      <%= form_tag items_path, method: :get, class: "input-group" do %>
+        <div>
+          <%= label :location, "Search items near : ", class: "input-group-prepend" %>
+          <%= text_field_tag :location, params[:location], class: "form-control pt-0 pb-0"%>
+        </div>
+
+        <div>
+          <%= label :distance, "Distance (in km) : ", class: "input-group-prepend"%>
+          <%= text_field_tag :distance, params[:distance], class: "form-control pt-0 pb-0" %>
+        </div>
+
+        <div>
+          <%= submit_tag "Search", class: "btn btn-vizi ml-1" %>
+        </div>
+      <% end %>
+
+
+  </div>
+
 
   <div class="container mt-3 d-flex justify-content-between">
 
