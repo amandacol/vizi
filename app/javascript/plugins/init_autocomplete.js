@@ -8,7 +8,7 @@ const initAutocomplete = () => {
 };
 
 const initAutocompleteFind = () => {
-  const addressInput = document.getElementById("location");
+  const addressInput = document.getElementById("filter_location");
   if (addressInput) {
     places({ container: addressInput });
   }

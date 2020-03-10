@@ -12,19 +12,21 @@
         <% else %>
           <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
         <% end %>
-        <h5 class="text-white">This item belogs to:</h5>
+        <h5 class="text-white">This item belongs to:</h5>
         <p class="mb-0"><%= @item.user.email %></p>
       </div>
 
       <div class="col-md-6">
-        <h2>Transaction Type</h2>
+        <p>Available from <%= @item.start_date %> | to <%= @item.end_date %></p>
+
+        <h2>Transaction type</h2>
         <p><%= @item.transaction_type %></p>
 
         <h2>Description</h2>
         <p><%= @item.description %></p>
 
         <h2>Sport</h2>
-        <p><%= @item.sport %></p>
+        <p><%= @item.sport[:name] %></p>
         <h2 class="bg-light rounded-sm mt-4 p-2">R$ <%= @item.price %></h2>
       </div>
 
