@@ -6,6 +6,11 @@ class User < ApplicationRecord
   geocoded_by :address
   has_many :items, dependent: :destroy
 
+
+  has_many :orders
+  has_many :wishlists
+
+  has_one_attached :photo
   validates :name, :surname, :address, presence: true, on: :update
 
   after_validation :geocode, if: :will_save_change_to_address?

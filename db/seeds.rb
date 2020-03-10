@@ -16,6 +16,7 @@ sports_list = JSON.parse(list)
 sports_list['data'].each do |item|
   Sport.create(
     name: item['attributes']['name']
+    image: item['attributes']['icon']
   )
 
   # puts item['attributes']['name']

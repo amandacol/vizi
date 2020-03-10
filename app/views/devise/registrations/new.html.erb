@@ -8,6 +8,7 @@
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email", class: 'rounded-pill' }%>
+    <%= f.input :photo, as: :file %>
     <%= f.input :password,
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
@@ -15,9 +16,7 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password", class: 'rounded-pill' } %>
-    <div class="form-actions btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill">
-      <%= f.button :submit, "Sign up" %>
-    </div>
+    <%= f.submit "Sign up", class:'form-actions btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill p-2' %>
   </div>
 
 <% end %>
