@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_06_171048) do
+ActiveRecord::Schema.define(version: 2020_03_11_145154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_03_06_171048) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "sport"
     t.string "transaction_type"
     t.date "start_date"
     t.date "end_date"
@@ -50,6 +49,10 @@ ActiveRecord::Schema.define(version: 2020_03_06_171048) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+    t.bigint "sport_id"
+    t.integer "price_cents", default: 0, null: false
+    t.string "address"
+    t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -59,6 +62,12 @@ ActiveRecord::Schema.define(version: 2020_03_06_171048) do
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "checkout_session_id"
+    t.boolean "delivered", default: false
+    t.string "rent_start_date"
+    t.string "rent_end_date"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -72,6 +81,33 @@ ActiveRecord::Schema.define(version: 2020_03_06_171048) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "comment"
+    t.string "star"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.index ["item_id"], name: "index_reviews_on_item_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "sports", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image"
+  end
+
+  create_table "user_sports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "sport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_user_sports_on_sport_id"
+    t.index ["user_id"], name: "index_user_sports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -82,12 +118,32 @@ ActiveRecord::Schema.define(version: 2020_03_06_171048) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+    t.string "name"
+    t.string "surname"
+    t.string "address"
+    t.string "description"
+    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_wishlists_on_item_id"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+  add_foreign_key "reviews", "items"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "user_sports", "sports"
+  add_foreign_key "user_sports", "users"
+  add_foreign_key "wishlists", "items"
+  add_foreign_key "wishlists", "users"
 end
