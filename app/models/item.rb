@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   has_many :orders
   has_one_attached :photo
   has_many :wishlists
+  has_many :reviews, dependent: :destroy
 
   geocoded_by :address
 
