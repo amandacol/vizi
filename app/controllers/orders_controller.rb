@@ -27,6 +27,9 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
     @order = Order.new
     authorize @order
+    if @item.user == current_user
+      redirect_to items_path, notice: "You cannot add your own item to the cart!"
+    else
     @order.item = @item
     @order.user = current_user
     @order.date = Time.now

@@ -13,3 +13,4 @@ import 'plugins/init_select2'
 
 import "../plugins/flatpickr"
 
+

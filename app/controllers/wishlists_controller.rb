@@ -1,9 +1,6 @@
 class WishlistsController < ApplicationController
   before_action :set_wishlist, only: [:destroy]
-  def new
-    @wishlist = Wishlist.new
-    authorize @wishlist
-  end
+
 def index
   @user_items = current_user.items
   @ser_wishlists = current_user.wishlists
@@ -13,7 +10,7 @@ def index
       @wishlists = policy_scope(Wishlist)
     end
 
-    @wishlists = @wishlists.wishlist(created_at: :desc)
+    #@wishlists = @wishlists.order(created_at: :desc)
     # @markers = @wishlists.map do |wishlist|
     #   {
     #     lat: wishlist.latitude,
@@ -26,16 +23,20 @@ def index
     @item = Item.find(params[:item_id])
     @wishlist = Wishlist.new
     authorize @wishlist
-    @wishlist.item = @item
-    @wishlist.user = current_user
-    @wishlist.save
-    redirect_to items_path, notice: "Successfully added to wishlist!"
+    if @item.user == current_user
+      redirect_to items_path, notice: "You cannot add your own item to wishlist!"
+    else
+      @wishlist.item = @item
+      @wishlist.user = current_user
+      @wishlist.save
+      redirect_to items_path, notice: "Successfully added to wishlist!"
+    end
   end
 
   def destroy
     @wishlist.destroy
     authorize @wishlist
-    redirect_to wishlists_path
+    redirect_to orders_path
   end
 
   def deliver
@@ -51,7 +52,7 @@ def index
   private
 
   def set_wishlist
-    @wishlist = wishlist.find(params[:id])
+    @wishlist = Wishlist.find(params[:id])
   end
 
   def wishlist_params

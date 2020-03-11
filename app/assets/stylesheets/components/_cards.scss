@@ -103,9 +103,11 @@
 
 
 .card-sport {
+  display: inline-block;
+  position: relative;
+  margin: 5px 10px 5px 0px;
   background-color: #f7f448;
-  width: 56px;
-  border-radius: 50%;
+  border-radius: 16px;
 }
 // CARD IN ITEM SHOW PAGE
 

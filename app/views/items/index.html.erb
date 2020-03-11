@@ -43,19 +43,16 @@
           </div>
           <div class="card-item-hover">
             <h2><%= link_to item.name, item_path(item)%></h2>
-            <p><%= item.sport[:name] %></p>
+            <div class="container d-flex justify-content-center"><%= render 'sports/card', sport_name: item.sport.name %></div>
             <h2>R$ <%= item.price %></h2>
-            <%= simple_form_for [item, Order.new] do |s|  %>
-              <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
-            <% end %>
             <%= simple_form_for [item, Wishlist.new] do |s|  %>
               <%= s.submit "Add to your wishlist", class: "btn btn-vizi mt-2" %>
             <% end %>
             <% if item.user.photo.attached? %>
-            <%= cl_image_tag item.user.photo.key, crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+              <%= cl_image_tag item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% else %>
-            <%= cl_image_tag 'user.png', crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <% end %>
+              <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
           </div>
         </div>
       <%end%>
@@ -75,8 +72,5 @@
   <% if policy(Item).create? %>
     <%= link_to "Add your item!", new_item_path, class: "btn btn-vizi btn-lg mt-3"%>
   <% end %>
-
-
-
 </div>
 
