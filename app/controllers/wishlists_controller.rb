@@ -1,5 +1,5 @@
 class WishlistsController < ApplicationController
-  before_action :set_order, only: [:destroy]
+  before_action :set_wishlist, only: [:destroy]
   def new
     @wishlist = Wishlist.new
     authorize @wishlist

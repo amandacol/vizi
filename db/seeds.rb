@@ -14,9 +14,8 @@ list = open(url).read
 sports_list = JSON.parse(list)
 
 sports_list['data'].each do |item|
-  Sport.create(
+  Sport.create!(
     name: item['attributes']['name']
-    image: item['attributes']['icon']
   )
 
   # puts item['attributes']['name']

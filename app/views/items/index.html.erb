@@ -1,9 +1,7 @@
-
-
 <div class="container text-center mt-4">
 
   <form>
-    <div class="input-group">
+    <div class="input-group mb-3">
         <%= form_tag items_path, method: :get do %>
         <%= text_field_tag :query,
           params[:query],
@@ -15,37 +13,18 @@
     </div>
   </form>
 
-  <div class="d-flex justify-content-between align-items-center mt-3">
+  <div class="d-flex justify-content-center">
+<!-- filter by sport, not updating the index -->
+    <%= simple_form_for :filter, url: items_path, method: :get, html: { class: "form-inline" }, wrapper: :inline_form do |f| %>
+      <%= f.input :sport, collection: @sports, input_html: { class: "select2 w-50 pt-3", multiple: true }, as: :select, include_hidden: false %>
+      <%= f.input :location, placeholder: 'Filter by location', input_html: { class: "ml-2"} %>
+      <%= f.input :distance, placeholder: 'Distance (in km)' %>
+      <%= f.input :start_date, placeholder: 'Available from...', as: :string, required: false, input_html: {class: "datepicker ml-2 bg-white"} %>
+      <%= f.input :end_date, placeholder: '... to', as: :string, required: false, input_html: {class: "datepicker bg-white"} %>
+      <%= f.submit "Filter", class: "btn btn-outline-primary ml-2" %>
+      <%= link_to "Cancel", items_path, class: "btn btn-outline-secondary ml-2" %>
 
-    <div class="input-group">
-      <%= simple_form_for :filter, url: items_path, method: :get do |f| %>
-        <%= label :sport, "Filter by sport : ", class: "input-group-prepend" %>
-        <%= select_tag "sport",
-        options_from_collection_for_select(@sports, "id", "name"),
-        class: "select2 form-control",
-        multiple: true
-        %>
-        <%= f.submit "Filter", class: "btn btn-vizi" %>
-      <% end %>
-    </div>
-
-
-      <%= form_tag items_path, method: :get, class: "input-group" do %>
-        <div>
-          <%= label :location, "Search items near : ", class: "input-group-prepend" %>
-          <%= text_field_tag :location, params[:location], class: "form-control pt-0 pb-0"%>
-        </div>
-
-        <div>
-          <%= label :distance, "Distance (in km) : ", class: "input-group-prepend"%>
-          <%= text_field_tag :distance, params[:distance], class: "form-control pt-0 pb-0" %>
-        </div>
-
-        <div>
-          <%= submit_tag "Search", class: "btn btn-vizi ml-1" %>
-        </div>
-      <% end %>
-
+    <% end %>
 
   </div>
 
@@ -64,13 +43,13 @@
           </div>
           <div class="card-item-hover">
             <h2><%= link_to item.name, item_path(item)%></h2>
-            <p><%= item.sport %></p>
+            <p><%= item.sport[:name] %></p>
             <h2>R$ <%= item.price %></h2>
             <%= simple_form_for [item, Order.new] do |s|  %>
-            <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
+              <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
             <% end %>
             <%= simple_form_for [item, Wishlist.new] do |s|  %>
-            <%= s.submit "Add to your wishlist", class: "btn btn-vizi mt-2" %>
+              <%= s.submit "Add to your wishlist", class: "btn btn-vizi mt-2" %>
             <% end %>
             <img src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" class="card-item-user avatar-bordered" />
           </div>

@@ -5,10 +5,15 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[new create]
   resources :users, only: [:show, :index]
   resources :items do
-    resources :orders, except: :index
     resources :wishlists, except: :index
     resources :reviews, only: [:index, :create]
   end
-  resources :orders, only: [:index]
+  resources :orders, only: [:index, :new, :create]
+
+  end
   resources :wishlists, only: [:index]
-end
+  resources :orders, only: [:index, :edit, :update, :destroy] do
+    resources :payments, only: :new
+  end
+  end
+

@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :orders
   has_many :wishlists
 
+  has_many :user_sports
+  has_many :sports, through: :user_sports
+
   has_one_attached :photo
   validates :name, :surname, :address, presence: true, on: :update
 
