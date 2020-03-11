@@ -1,8 +1,9 @@
-<div class="container mt-5"><h4>Just some more information</h4>
+<div class="container mt-4"><h4>Just some more information...</h4>
 
-<%= simple_form_for @profile, url: profiles_path, method: :post do |f|%>
-  <%= f.input :photo, as: :file %>
-  <%= f.input :description %>
+<p><%= simple_form_for @profile, url: profiles_path, method: :post do |f|%>
+
+  <%= f.input :description,
+               input_html: { autocomplete: "description", class: 'rounded-pill' }%>
   <%= f.input :name,
                required: true,
                autofocus: true,
@@ -15,7 +16,12 @@
                required: true,
                autofocus: true,
                input_html: { autocomplete: "surname", class: 'rounded-pill' }%>
-  <%= f.association :sports,  collection: Sport.order(:name)%>
+  <%= f.association :sports,  collection: Sport.order(:name),
+               input_html: { autocomplete: "sports", class: 'rounded-pill' }%>
+  <%= f.input :photo,
+                required: true,
+                input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: '📷 Upload your photo' %>
   <%= f.submit 'Complete your registration', class: 'form-actions btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill' %>
 <% end %>
+</p>
 </div>

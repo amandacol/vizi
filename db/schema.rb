@@ -81,6 +81,17 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "comment"
+    t.string "star"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.index ["item_id"], name: "index_reviews_on_item_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "sports", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -129,6 +140,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+  add_foreign_key "reviews", "items"
+  add_foreign_key "reviews", "users"
   add_foreign_key "user_sports", "sports"
   add_foreign_key "user_sports", "users"
   add_foreign_key "wishlists", "items"

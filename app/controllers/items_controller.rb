@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
     end
 
     if filter_params[:location].present?
-      @items = @items.near(filter_params[:location], filter_params[:distance] || 10, order: :distance)
+      @items = @items.near(filter_params[:location], filter_params[:distance].presence || 10, order: :distance)
     end
 
     if filter_params[:start_date].present?
