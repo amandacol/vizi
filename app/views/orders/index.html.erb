@@ -33,11 +33,13 @@
       <p><%= order.item.sport.name %></p>
       <h2>R$ <%= order.item.price %></h2>
       <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
+
       <% if order.item.user.photo.attached? %>
         <%= cl_image_tag order.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
       <% else %>
         <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
       <% end %>
+
     </div>
   </div>
 </div>

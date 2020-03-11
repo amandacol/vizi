@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
     else
       @orders = policy_scope(Order)
     end
-
     @orders = @orders.order(created_at: :desc)
   end
 
@@ -44,7 +43,6 @@ class OrdersController < ApplicationController
         @order.rent_start_date = Date.parse(@order.extent.split(" ")[0])
         @order.rent_end_date = Date.parse(@order.extent.split(" ")[2])
       end
-
 
       @order.save
 
@@ -89,7 +87,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:date, :extent, :end_date, :start_date)
+    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent)
   end
 
   def filter_params
