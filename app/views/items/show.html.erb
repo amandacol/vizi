@@ -18,8 +18,8 @@
 
           <div class="d-flex justify-content-center">
             <div class="m-3">
-              <h5>Sport</h5>
-              <p><%= @item.sport[:name] %></p>
+              <%= render 'sports/card', sport: @item.sport[:name] %>
+              <!-- Aqui ja vai o sport do meu item?? -->
             </div>
 
             <div class="m-3">
