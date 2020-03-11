@@ -82,7 +82,11 @@
 
 
           <div class="card-show-infos">
-            <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-show-user avatar-bordered" />
+            <% if @user.photo.attached? %>
+              <%= cl_image_tag @user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
             <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
             <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
           </div>
