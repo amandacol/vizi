@@ -7,9 +7,8 @@ Rails.application.routes.draw do
   resources :items do
     resources :wishlists, except: :index
     resources :reviews, only: [:index, :create]
+    resources :orders, only: [:create]
   end
-  resources :orders, only: [:index, :new, :create]
-
   resources :wishlists, only: [:index]
   resources :orders, only: [:index, :edit, :update, :destroy] do
     resources :payments, only: :new
