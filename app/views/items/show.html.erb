@@ -38,6 +38,22 @@
             </div>
           </div>
 
+  <div class="d-flex justify-content-center">
+    <%= link_to("Back to item list", items_path, {class: "btn btn-primary mt-3 mr-3"}) %>
+    <%= simple_form_for [@item, @order] do |s|  %>
+      <%= s.submit "Add to the cart", class: "btn btn-primary mt-3 mr-3" %>
+    <% end %>
+  </div>
+          <div class="card-show-infos">
+            <% if @item.user.photo.attached? %>
+            <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+            <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
+            <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
+            <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
+          </div>
+        </div>
           <div class="mb-3 pl-3 pr-3">
             <p><%= @item.description %></p>
           </div>

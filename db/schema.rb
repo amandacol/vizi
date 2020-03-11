@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.string "name"
     t.string "surname"
     t.string "address"
