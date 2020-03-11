@@ -103,9 +103,12 @@
 
 
 .card-sport {
+  display:flex;
+  justify-content: center;
+  align-items: center;
   background-color: #f7f448;
-  width: 56px;
-  border-radius: 50%;
+  width: 70px;
+  border-radius: 20px;
 }
 // CARD IN ITEM SHOW PAGE
 
@@ -138,6 +141,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 2px dotted $blue;
+
 }
 
 .card-show-infos .card-show-user {
