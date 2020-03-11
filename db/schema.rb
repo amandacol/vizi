@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.float "latitude"
     t.float "longitude"
     t.bigint "sport_id"
-    t.string "address"
     t.integer "price_cents", default: 0, null: false
+    t.string "address"
     t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -123,8 +123,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.string "address"
     t.string "description"
     t.string "photo"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

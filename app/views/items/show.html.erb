@@ -82,7 +82,11 @@
 
 
           <div class="card-show-infos">
-            <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-show-user avatar-bordered" />
+            <% if @item.user.photo.attached? %>
+            <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+            <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
             <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
             <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
           </div>
@@ -98,9 +102,14 @@
           <% end %>
         </div>
 
-  <% @reviews.last.tap do |review| %>
-    <%= review.comment %>
-    <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+  <% if @reviews.any?  %>
+    <% @reviews.last.tap do |review| %>
+      <%= review.comment %>
+      <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+    <% end %>
+  <% else %>
+    Leave the first comment:
+
   <% end %>
 
   <%= form_for([@item, @review]) do |f| %>

@@ -4,24 +4,24 @@ class OrdersController < ApplicationController
     @order = Order.new
     authorize @order
   end
-def index
-  @user_items = current_user.items
-  @neighbor_orders = current_user.orders
-  @user_wishlists = current_user.wishlists
-  if params[:query].present?
-      @orders = policy_scope(Order).search_by_name_and_description(params[:query])
+  def index
+      @user_items = current_user.items
+      @neighbor_orders = current_user.orders
+      @user_wishlists = current_user.wishlists
+    if params[:query].present?
+        @orders = policy_scope(Order).search_by_name_and_description(params[:query])
     else
-      @orders = policy_scope(Order)
+        @orders = policy_scope(Order)
     end
 
-    @orders = @orders.order(created_at: :desc)
-    # @markers = @orders.map do |order|
-    #   {
-    #     lat: order.latitude,
-    #     lng: order.longitude,
-    #     # infoWindow: render_to_string(partial: "info_window", locals: { order: order })
-    #   }
-    end
+      @orders = @orders.order(created_at: :desc)
+      # @markers = @orders.map do |order|
+      #   {
+      #     lat: order.latitude,
+      #     lng: order.longitude,
+      #     # infoWindow: render_to_string(partial: "info_window", locals: { order: order })
+      #   }
+  end
 
   def create
     @item = Item.find(params[:item_id])
@@ -52,6 +52,7 @@ def index
     order.update(checkout_session_id: session.id)
     redirect_to new_order_payment_path(order)
 
+  end
   end
 
   def destroy
