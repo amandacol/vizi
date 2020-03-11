@@ -3,7 +3,6 @@
 <%= simple_form_for @profile, url: profiles_path, method: :post do |f|%>
   <%= f.input :photo, as: :file %>
   <%= f.input :description %>
-  <%= f.submit 'Complete your registration', class: 'btn btn-primary btn-block' %>
   <%= f.input :name,
                required: true,
                autofocus: true,
@@ -16,6 +15,7 @@
                required: true,
                autofocus: true,
                input_html: { autocomplete: "surname", class: 'rounded-pill' }%>
+  <%= f.association :sports,  collection: Sport.order(:name)%>
   <%= f.submit 'Complete your registration', class: 'form-actions btn btn-primary btn-block btn-login text-uppercase font-weight-bold mb-3 rounded-pill' %>
 <% end %>
 </div>

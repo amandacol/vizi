@@ -101,8 +101,46 @@
   margin: 0;
 }
 
+
 .card-sport {
   background-color: #f7f448;
   width: 56px;
   border-radius: 50%;
+
+// CARD IN ITEM SHOW PAGE
+
+.card-show {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.card-show > img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-show h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-show p {
+  font-size: 18px;
+  opacity: .7;
+  margin: 0;
+}
+
+.card-show .card-show-infos {
+  padding: 16px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-show-infos .card-show-user {
+  width: 50px;
+  height: 50px;
 }
