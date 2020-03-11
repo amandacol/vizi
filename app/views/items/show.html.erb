@@ -98,7 +98,7 @@
           <% end %>
         </div>
 
-  <% @reviews.last.tap do |review| %>
+  <% @reviews.last&.tap do |review| %>
     <%= review.comment %>
     <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
   <% end %>
