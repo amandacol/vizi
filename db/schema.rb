@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_194309) do
+ActiveRecord::Schema.define(version: 2020_03_10_174940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_194309) do
     t.float "latitude"
     t.float "longitude"
     t.bigint "sport_id"
+    t.string "address"
     t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -80,6 +81,15 @@ ActiveRecord::Schema.define(version: 2020_03_09_194309) do
     t.string "image"
   end
 
+  create_table "user_sports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "sport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_user_sports_on_sport_id"
+    t.index ["user_id"], name: "index_user_sports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -93,15 +103,27 @@ ActiveRecord::Schema.define(version: 2020_03_09_194309) do
     t.string "address"
     t.string "description"
     t.string "photo"
-    t.string "sport_tag"
     t.float "latitude"
     t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_wishlists_on_item_id"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+  add_foreign_key "user_sports", "sports"
+  add_foreign_key "user_sports", "users"
+  add_foreign_key "wishlists", "items"
+  add_foreign_key "wishlists", "users"
 end
