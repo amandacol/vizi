@@ -61,6 +61,8 @@ class ItemsController < ApplicationController
     @order = Order.new
     @user = @item.user
     @wishlist = Wishlist.new
+    @reviews = policy_scope(Review)
+    @review = Review.new
   end
 
   def edit
