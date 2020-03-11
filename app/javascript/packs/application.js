@@ -10,4 +10,6 @@ import { initMapbox } from '../plugins/init_mapbox';
 initMapbox();
 
 import 'plugins/init_select2'
+
 import "../plugins/flatpickr"
+

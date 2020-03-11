@@ -40,11 +40,11 @@ class ItemsController < ApplicationController
     end
 
     if filter_params[:start_date].present?
-      @items = @items.where("start_date > ?", Date.parse(filter_params[:start_date]))
+      @items = @items.where("start_date <= ?", Date.parse(filter_params[:start_date]))
     end
 
     if filter_params[:end_date].present?
-      @items = @items.where("end_date < ?", Date.parse(filter_params[:end_date]))
+      @items = @items.where("end_date >= ?", Date.parse(filter_params[:end_date]))
     end
 
     @items = @items.order(created_at: :desc)
