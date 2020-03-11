@@ -1,0 +1,35 @@
+.my-informations {
+
+  justify-content: space-around;
+  position: relative;
+  flex-direction:column;
+  align-items: center;
+  display: flex;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height:700px;
+  margin-left: 50px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.edit {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.cont-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.cards-public-profile {
+  margin-top: 100px;
+  justify-content: space-around;
+  display: flex;
+}
+
+

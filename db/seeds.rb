@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'json'
+require 'open-uri'
+
+url = 'https://sports.api.decathlon.com/sports'
+list = open(url).read
+sports_list = JSON.parse(list)
+
+sports_list['data'].each do |item|
+  Sport.create!(
+    name: item['attributes']['name']
+  )
+
+  # puts item['attributes']['name']
+  #print "\n" se quiser printar na tela do terminal
+end

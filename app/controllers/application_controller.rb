@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :dispatch_user
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  skip_before_action :verify_authenticity_token
   include Pundit
 
   # Pundit: white-list approach.
@@ -12,6 +15,18 @@ class ApplicationController < ActionController::Base
   #   flash[:alert] = "You are not authorized to perform this action."
   #   redirect_to(root_path)
   # end
+  def configure_permitted_parameters
+    # For additional in app/views/devise/registrations/edit.html.erb
+    devise_parameter_sanitizer.permit(:account_update, keys: [:photo, :description])
+  end
+
+  def dispatch_user
+    return unless current_user && request.get?
+
+    path = new_profile_path unless current_user.valid?
+
+    redirect_to path unless path.nil? || path == request.path
+  end
 
   private
 
