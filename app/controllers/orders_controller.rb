@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-   before_action :set_order, only: [:destroy]
+  before_action :set_order, only: [:destroy]
+
   def new
     @order = Order.new
     authorize @order
@@ -15,12 +16,6 @@ class OrdersController < ApplicationController
       @orders = policy_scope(Order)
     end
     @orders = @orders.order(created_at: :desc)
-    # @markers = @orders.map do |order|
-    #   {
-    #     lat: order.latitude,
-    #     lng: order.longitude,
-    #     # infoWindow: render_to_string(partial: "info_window", locals: { order: order })
-    #   }
   end
 
   def create
@@ -29,43 +24,44 @@ class OrdersController < ApplicationController
     authorize @order
     if @item.user == current_user
       redirect_to items_path, notice: "You cannot add your own item to the cart!"
+
     else
-    @order.item = @item
-    @order.user = current_user
-    @order.date = Time.now
-    @order.amount = @item.price
-    @order.state = 'pending'
+      @order.item = @item
+      @order.user = current_user
+      @order.date = Time.now
+      @order.amount = @item.price
+      @order.state = 'pending'
 
-    if @item.transaction_type == "Sale"
-      @order.rent_start_date = nil
-      @order.rent_end_date = nil
-      @order.duration = nil
+      if @item.transaction_type == "Sale"
+        @order.rent_start_date = nil
+        @order.rent_end_date = nil
+        @order.duration = nil
+      end
+
+      if @item.transaction_type == "Rental"
+        @order.extent = order_params[:extent]
+        @order.rent_start_date = Date.parse(@order.extent.split(" ")[0])
+        @order.rent_end_date = Date.parse(@order.extent.split(" ")[2])
+      end
+
+      @order.save
+
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        line_items: [{
+          name: @item.name,
+          images: [@item.photo],
+          amount: @item.price_cents,
+          currency: 'brl',
+          quantity: 1
+        }],
+        success_url: orders_url,
+        cancel_url: items_url
+      )
+
+      @order.update(checkout_session_id: session.id)
+      redirect_to new_order_payment_path(@order)
     end
-
-    if @item.transaction_type == "Rental"
-      @order.extent = order_params[:extent]
-      @order.rent_start_date = Date.parse(@order.extent.split(" ")[0])
-      @order.rent_end_date = Date.parse(@order.extent.split(" ")[2])
-    end
-
-    @order.save
-
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      line_items: [{
-        name: @item.name,
-        images: [@item.photo],
-        amount: @item.price_cents,
-        currency: 'brl',
-        quantity: 1
-      }],
-      success_url: orders_url,
-      cancel_url: items_url
-    )
-
-    @order.update(checkout_session_id: session.id)
-    redirect_to new_order_payment_path(@order)
-
   end
 
   def destroy

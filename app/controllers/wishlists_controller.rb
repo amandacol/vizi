@@ -9,15 +9,7 @@ def index
     else
       @wishlists = policy_scope(Wishlist)
     end
-
-    #@wishlists = @wishlists.order(created_at: :desc)
-    # @markers = @wishlists.map do |wishlist|
-    #   {
-    #     lat: wishlist.latitude,
-    #     lng: wishlist.longitude,
-    #     # infoWindow: render_to_string(partial: "info_window", locals: { wishlist: wishlist })
-    #   }
-    end
+  end
 
   def create
     @item = Item.find(params[:item_id])
