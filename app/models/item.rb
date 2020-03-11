@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   has_many :wishlists
   has_many :reviews, dependent: :destroy
   monetize :price_cents
+  validates :transaction_type, inclusion: { in: ["Rental","Sale"], allow_nil: false }
 
 
   geocoded_by :address

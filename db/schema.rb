@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_133022) do
+ActiveRecord::Schema.define(version: 2020_03_11_145154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_133022) do
     t.float "latitude"
     t.float "longitude"
     t.bigint "sport_id"
-    t.integer "price_cents", default: 0, null: false
     t.string "address"
+    t.integer "price_cents", default: 0, null: false
     t.index ["sport_id"], name: "index_items_on_sport_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2020_03_11_133022) do
     t.integer "amount_cents", default: 0, null: false
     t.string "checkout_session_id"
     t.boolean "delivered", default: false
+    t.string "rent_start_date"
+    t.string "rent_end_date"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

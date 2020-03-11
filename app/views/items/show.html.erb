@@ -1,6 +1,6 @@
 <div class="container mt-4 text-center w-75">
 
-    <div class="row d-flex justify-content-center align-items-center p-4">
+    <div class="row d-flex justify-content-center align-items-center pl-4 pr-4">
 
       <div class="col-md-6 mb-3">
         <% if @item.photo.attached? %>
@@ -8,6 +8,12 @@
         <% else %>
           <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
         <% end %>
+        <div class="d-flex justify-content-center">
+          <%= link_to("Back to item list", items_path, {class: "btn btn-outline-primary mt-4 mr-3"}) %>
+          <%= simple_form_for [@item, @wishlist] do |s|  %>
+            <%= s.submit "Add to wishlist", class: "btn btn-outline-primary mt-4 mr-3" %>
+          <% end %>
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -17,27 +23,42 @@
           <p>Available from <%= @item.start_date %> to <%= @item.end_date %></p>
 
           <div class="d-flex justify-content-center">
-            <div class="m-3">
+            <div class="m-2">
               <h5>Sport</h5>
               <p><%= @item.sport[:name] %></p>
             </div>
 
-            <div class="m-3">
+            <div class="m-2">
               <h5>|</h5>
             </div>
 
-            <div class="m-3">
+            <div class="m-2">
               <h5>Transaction type</h5>
               <p><%= @item.transaction_type %></p>
             </div>
-
           </div>
 
           <div class="mb-3 pl-3 pr-3">
             <p><%= @item.description %></p>
           </div>
 
-          <h4 class="bg-light rounded-sm mt-4 p-2">R$ <%= @item.price %></h4>
+          <% if @item.transaction_type == "Sale" %>
+            <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %></h4>
+          <% end %>
+
+          <% if @item.transaction_type == "Rental" %>
+            <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %> per day</h4>
+          <% end %>
+
+          <% if @item.transaction_type == "Rental" %>
+            <div class="pl-5 pr-5">
+              <h5>When to when?</h5>
+              <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
+                <%= s.input :rent_start_date, input_html: { id: "range_start", class: "bg-white" }, placeholder: "Select dates here" %>
+                <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+              <% end %>
+            </div>
+          <% end %>
 
 
           <div class="card-show-infos">
@@ -59,14 +80,5 @@
       </div>
   </div>
 
-  <div class="d-flex justify-content-center">
-    <%= link_to("Back to item list", items_path, {class: "btn btn-primary mt-3 mr-3"}) %>
-    <%= simple_form_for [@item, @order] do |s|  %>
-      <%= s.submit "Add to the cart", class: "btn btn-primary mt-3 mr-3" %>
-    <% end %>
-    <%= simple_form_for [@item, @wishlist] do |s|  %>
-      <%= s.submit "Add to wishlist", class: "btn btn-primary mt-3 mr-3" %>
-    <% end %>
-  </div>
 
 </div>
