@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_one_attached :photo
   has_many :wishlists
   monetize :price_cents
+  validates :transaction_type, inclusion: { in: ["Rental","Sale"], allow_nil: false }
 
   geocoded_by :address
 
