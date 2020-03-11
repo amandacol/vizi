@@ -23,9 +23,9 @@
           <p>Available from <%= @item.start_date %> to <%= @item.end_date %></p>
 
           <div class="d-flex justify-content-center">
-            <div class="m-2">
-              <h5>Sport</h5>
-              <p><%= @item.sport[:name] %></p>
+            <div class="m-3">
+              <%= render 'sports/card', sport_name: @item.sport.name %>
+              <!-- Aqui ja vai o sport do meu item?? -->
             </div>
 
             <div class="m-2">
