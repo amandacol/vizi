@@ -43,7 +43,7 @@
           </div>
           <div class="card-item-hover">
             <h2><%= link_to item.name, item_path(item)%></h2>
-            <p><%= item.sport[:name] %></p>
+            <p><%= item.sport.name %></p>
             <h2>R$ <%= item.price %></h2>
             <%= simple_form_for [item, Order.new] do |s|  %>
               <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
