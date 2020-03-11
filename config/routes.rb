@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
   resources :items do
     resources :wishlists, except: :index
-    resources :orders, only: [:new, :create]
-    end
+    resources :reviews, only: [:index, :create]
+    resources :orders, only: [:create]
+  end
   resources :wishlists, only: [:index]
   resources :orders, only: [:index, :edit, :update, :destroy] do
     resources :payments, only: :new
   end
   end
+
 

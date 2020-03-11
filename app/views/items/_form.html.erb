@@ -1,41 +1,32 @@
 <div class="container text-center rounded">
-   <div class="row">
+  <div class="row">
     <div class="col-sm-6 offset-sm-3 bg-primary rounded p-3" style="box-shadow: 0 0 15px rgba(0,0,0,0.2);">
 
-  <%= simple_form_for @item do |f| %>
+      <%= simple_form_for @item do |f| %>
 
-    <div>
-      <%= f.input :name %>
-    </div>
-    <div>
-      <%= f.input :description %>
-    </div>
-    <div>
-     <%= f.association :sport, collection: Sport.all, prompt: "choose a sport" %>
-    </div>
-    <div>
-     <%= f.input :transaction_type %>
-    </div>
-    <div>
-     <%= f.input :start_date %>
-    </div>
-    <div>
-     <%= f.input :end_date %>
-    </div>
-    <div>
-     <%= f.input :size %>
-    </div>
-    <div>
-     <%= f.input :price %>
-    </div>
-    <div>
-     <%= f.input :photo, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: '📷 Upload a photo' %>
-    </div>
+        <%= f.input :name %>
+        <%= f.input :description %>
+        <%= f.association :sport, collection: Sport.all, prompt: "choose a sport" %>
+        <%= f.input :size %>
+        <%= f.input :transaction_type, collection: ["Rental","Sale"], as: :radio_buttons %>
 
-    <div>
-      <%= f.submit "Done!", class: 'btn btn-warning mb-1' %>
+        <%# if :transaction_type == "Rental" %>
+          <%= f.input :start_date %>
+          <%= f.input :end_date %>
+          <%#= f.input :price, label: "Price per day" %>
+        <%# end %>
+
+
+        <%# if :transaction_type == "Rental" %>
+          <%= f.input :price %>
+        <%# end %>
+
+        <%= f.input :photo, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: '📷 Upload a photo' %>
+
+        <%= f.submit "Done!", class: 'btn btn-warning mb-1' %>
+
+      <% end %>
+
     </div>
-  <% end %>
-</div>
-</div>
+  </div>
 </div>
