@@ -4,16 +4,16 @@ class OrdersController < ApplicationController
     @order = Order.new
     authorize @order
   end
-def index
-  @user_items = current_user.items
-  @neighbor_orders = current_user.orders
-  @user_wishlists = current_user.wishlists
-  if params[:query].present?
+
+  def index
+    @user_items = current_user.items
+    @neighbor_orders = current_user.orders
+    @user_wishlists = current_user.wishlists
+    if params[:query].present?
       @orders = policy_scope(Order).search_by_name_and_description(params[:query])
     else
       @orders = policy_scope(Order)
     end
-
     @orders = @orders.order(created_at: :desc)
     # @markers = @orders.map do |order|
     #   {
@@ -21,7 +21,7 @@ def index
     #     lng: order.longitude,
     #     # infoWindow: render_to_string(partial: "info_window", locals: { order: order })
     #   }
-    end
+  end
 
   def create
     @item = Item.find(params[:item_id])
@@ -33,8 +33,22 @@ def index
     @order.item = @item
     @order.user = current_user
     @order.date = Time.now
+    @order.amount = @item.price
+    @order.state = 'pending'
+
+    if @item.transaction_type == "Sale"
+      @order.rent_start_date = nil
+      @order.rent_end_date = nil
+      @order.duration = nil
+    end
+
+    if @item.transaction_type == "Rental"
+      @order.extent = order_params[:extent]
+      @order.rent_start_date = Date.parse(@order.extent.split(" ")[0])
+      @order.rent_end_date = Date.parse(@order.extent.split(" ")[2])
+    end
+
     @order.save
-    order  = Order.create!(item: @item, amount: @item.price, state: 'pending', user: current_user)
 
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
@@ -49,8 +63,8 @@ def index
       cancel_url: items_url
     )
 
-    order.update(checkout_session_id: session.id)
-    redirect_to new_order_payment_path(order)
+    @order.update(checkout_session_id: session.id)
+    redirect_to new_order_payment_path(@order)
 
   end
 
@@ -77,7 +91,7 @@ def index
   end
 
   def order_params
-    params.require(:order).permit(:date)
+    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent)
   end
 
   def filter_params
