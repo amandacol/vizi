@@ -24,8 +24,12 @@
 
           <div class="d-flex justify-content-center">
             <div class="m-3">
+              <h5>Sport</h5>
+              <p><%= @item.sport.name %></p>
+
               <%= render 'sports/card', sport_name: @item.sport.name %>
               <!-- Aqui ja vai o sport do meu item?? -->
+
             </div>
 
             <div class="m-2">
@@ -38,6 +42,22 @@
             </div>
           </div>
 
+  <div class="d-flex justify-content-center">
+    <%= link_to("Back to item list", items_path, {class: "btn btn-primary mt-3 mr-3"}) %>
+    <%= simple_form_for [@item, @order] do |s|  %>
+      <%= s.submit "Add to the cart", class: "btn btn-primary mt-3 mr-3" %>
+    <% end %>
+  </div>
+          <div class="card-show-infos">
+            <% if @item.user.photo.attached? %>
+            <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+            <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
+            <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
+            <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
+          </div>
+        </div>
           <div class="mb-3 pl-3 pr-3">
             <p><%= @item.description %></p>
           </div>
@@ -81,8 +101,47 @@
 
           <% end %>
         </div>
-      </div>
+
+  <% @reviews.last.tap do |review| %>
+    <%= review.comment %>
+    <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+  <% end %>
+
+  <%= form_for([@item, @review]) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %><br>
   </div>
 
 
+  <div class="field">
+        <%= f.select :star, 1..5 %><br>
+    </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<div>
+
+
+
 </div>
+
+    </div>
+  </div>
+
+

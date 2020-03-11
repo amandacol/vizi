@@ -9,11 +9,17 @@
 require 'json'
 require 'open-uri'
 
+puts 'destroying all sports'
+Sport.destroy_all
+
+puts 'fetching sports from API'
 url = 'https://sports.api.decathlon.com/sports'
 list = open(url).read
 sports_list = JSON.parse(list)
 
+puts 'creating sports:'
 sports_list['data'].each do |item|
+  printf("\rCreating %s", item['attributes']['name'])
   Sport.create!(
     name: item['attributes']['name']
   )
