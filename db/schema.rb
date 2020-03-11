@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_145154) do
+ActiveRecord::Schema.define(version: 2020_03_11_190947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.boolean "delivered", default: false
     t.string "rent_start_date"
     t.string "rent_end_date"
+    t.string "extent"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -123,8 +124,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_145154) do
     t.string "address"
     t.string "description"
     t.string "photo"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
