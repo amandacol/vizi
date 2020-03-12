@@ -10,13 +10,12 @@
         <p>Rental start date: <%= @order.rent_start_date %></p>
         <p>Rental end date: <%= @order.rent_end_date %></p>
         <p><%= (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i %> day(s)</p>
-        <p>Total: <%= humanized_money_with_symbol @order.amount.to_i * (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i %></p>
+        <p>Total: <%= humanized_money_with_symbol @order.amount %></p>
       <% end %>
 
       <% if @order.item.transaction_type == "Sale" %>
         <p>Total: <%= humanized_money_with_symbol @order.amount %></p>
       <% end %>
-
 
       <button id="pay" class="btn btn-primary">Pay Now</button>
       <%= link_to "Pay Later", items_path, class: "btn btn-primary" %>
