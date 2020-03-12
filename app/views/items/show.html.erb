@@ -52,12 +52,17 @@
         <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
         <% end %>
 
-        <% if @item.transaction_type == "Rental" %>
-        <div class="pl-5 pr-5">
-          <h5>When to when?</h5>
-          <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
-          <%= s.input :extent, input_html: { id: "range_start", class: "bg-white" }, placeholder: "Select dates here" %>
-          <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+
+          <% if @item.transaction_type == "Rental" %>
+            <div class="pl-5 pr-5">
+              <h5>When to when?</h5>
+              <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
+                <%= s.input :extent, input_html: { id: "range_start", class: "bg-white", required: true }, placeholder: "Select dates here" %>
+                <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+              <% end %>
+              <p id="total">Total: </p>
+            </div>
+
           <% end %>
           <p id="total">Total: </p>
         </div>
