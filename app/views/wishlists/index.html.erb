@@ -11,35 +11,31 @@
       <% end %>
     </div>
   </form>
-  <h1 class="text-primary">See your orders</h1>
-<nav>
+  <h1 class="text-primary">See the items that you love</h1>
   <div class="cards mt-4">
-  <% @neighbor_orders.each do |order| %>
+<% @user_wishlists.each do |wishlist| %>
   <div class="card-item" >
     <div class="card-item-display">
-      <% if order.item.photo.attached? %>
-      <%= cl_image_tag order.item.photo.key, width: 200, height: 200, crop: :fill %>
+      <% if wishlist.item.photo.attached? %>
+        <%= cl_image_tag wishlist.item.photo.key, width: 200, height: 200, crop: :fill %>
       <% else %>
       <img src="https://images.unsplash.com/photo-1531722569936-825d3dd91b15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
       <% end %>
   </div>
   <div class="card-item-hover">
     <div class="card-item-infos text-center">
-      <h2><%= link_to order.item.name, item_path(order.item)%></h2>
-      <p><%= order.item.sport.name %></p>
-      <h2>R$ <%= order.item.price %></h2>
-      <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
-
-      <% if order.item.user.photo.attached? %>
-        <%= cl_image_tag order.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <h2><%= link_to wishlist.item.name, item_path(wishlist.item)%></h2>
+      <p><%= wishlist.item.sport.name %></p>
+      <h2>R$ <%= wishlist.item.price %></h2>
+      <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, item_wishlist_path(wishlist.item.id, wishlist.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
+      <% if wishlist.item.user.photo.attached? %>
+        <%= cl_image_tag wishlist.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
       <% else %>
         <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
       <% end %>
-
     </div>
   </div>
 </div>
 <%end%>
-</div>
 </div>
 </div>
