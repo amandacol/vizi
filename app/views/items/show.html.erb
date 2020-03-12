@@ -4,14 +4,14 @@
 
     <div class="col-md-6 mb-3">
       <% if @item.photo.attached? %>
-        <%= cl_image_tag @item.photo.key, crop: :fill, class: "avatar-large bg-white" %>
+      <%= cl_image_tag @item.photo.key, crop: :fill, class: "avatar-large bg-white" %>
       <% else %>
-        <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
+      <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
       <% end %>
       <div class="d-flex justify-content-center">
         <%= link_to("Back to item list", items_path, {class: "btn btn-outline-primary mt-4 mr-3"}) %>
         <%= simple_form_for [@item, @wishlist] do |s|  %>
-          <%= s.submit "Add to wishlist", class: "btn btn-outline-primary mt-4 mr-3" %>
+        <%= s.submit "Add to wishlist", class: "btn btn-outline-primary mt-4 mr-3" %>
         <% end %>
       </div>
     </div>
@@ -45,31 +45,31 @@
         </div>
 
         <% if @item.transaction_type == "Sale" %>
-          <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %></h4>
+        <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %></h4>
         <% end %>
 
-          <% if @item.transaction_type == "Rental" %>
-            <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
-          <% end %>
+        <% if @item.transaction_type == "Rental" %>
+        <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
+        <% end %>
 
-          <% if @item.transaction_type == "Rental" %>
-            <div class="pl-5 pr-5">
-              <h5>When to when?</h5>
-              <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
-                <%= s.input :extent, input_html: { id: "range_start", class: "bg-white" }, placeholder: "Select dates here" %>
-                <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
-              <% end %>
-              <p id="total">Total: </p>
-            </div>
+        <% if @item.transaction_type == "Rental" %>
+        <div class="pl-5 pr-5">
+          <h5>When to when?</h5>
+          <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
+          <%= s.input :extent, input_html: { id: "range_start", class: "bg-white" }, placeholder: "Select dates here" %>
+          <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
           <% end %>
+          <p id="total">Total: </p>
+        </div>
+        <% end %>
 
 
         <div class="card-show-infos">
           <% if @item.user.photo.attached? %>
-              <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <% else %>
-              <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <% end %>
+          <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% else %>
+          <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
           <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
           <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
         </div>
@@ -79,30 +79,38 @@
 
       <div class="d-flex justify-content-center mt-2">
         <% if current_user == @item.user %>
-          <p class="mr-4"><%=link_to '<i class="far fa-edit"></i> Edit'.html_safe, edit_item_path(@item.id)%></p>
-          <p class="ml-4"><%= link_to '<i class="far fa-trash-alt"></i> Delete'.html_safe, item_path(@item.id), method: :delete, data: { confirm: 'Are you sure?' }%> </p>
+        <p class="mr-4"><%=link_to '<i class="far fa-edit"></i> Edit'.html_safe, edit_item_path(@item.id)%></p>
+        <p class="ml-4"><%= link_to '<i class="far fa-trash-alt"></i> Delete'.html_safe, item_path(@item.id), method: :delete, data: { confirm: 'Are you sure?' }%> </p>
         <% end %>
       </div>
 
     </div>
 
-  <div>
-    <% @reviews.last&.tap do |review| %>
-      <%= review.comment %>
-      <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
-    <% end %>
+    <div>
+      <% @reviews.last&.tap do |review| %>
+        <% if review.user.photo.attached? %>
+          <%= cl_image_tag review.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% else %>
+          <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% end %>
+        <%= review.user.name %>
+        <%= review.comment %>
+        <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+      <% end %>
 
-    <%= form_for([@item, @review]) do |f| %>
+      <% if current_user == @item.user %>
+
+      <%= form_for([@item, @review]) do |f| %>
       <% if @review.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <div id="error_explanation">
+        <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
 
-          <ul>
+        <ul>
           <% @review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+          <li><%= message %></li>
           <% end %>
-          </ul>
-        </div>
+        </ul>
+      </div>
       <% end %>
       <div class="field">
         <%= f.label :comment %><br>
@@ -114,9 +122,11 @@
       <div class="actions">
         <%= f.submit %>
       </div>
-    <% end %>
-  </div>
+      <% end %>
+      <% end %>
+    </div>
 
+  </div>
 </div>
 
 
