@@ -35,7 +35,11 @@
         </div>
         <% if @item.transaction_type == "Sale" %>
           <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %></h4>
+          <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
+            <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+          <% end %>
         <% end %>
+
         <% if @item.transaction_type == "Rental" %>
           <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
         <% end %>

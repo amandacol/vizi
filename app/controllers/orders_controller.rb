@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
       if @item.transaction_type == "Sale"
         @order.rent_start_date = nil
         @order.rent_end_date = nil
-        @order.duration = nil
+        @order.extent = nil
       end
 
       if @item.transaction_type == "Rental"
@@ -46,18 +46,35 @@ class OrdersController < ApplicationController
 
       @order.save
 
-      session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
-        line_items: [{
-          name: @item.name,
-          images: [@item.photo],
-          amount: @item.price_cents,
-          currency: 'brl',
-          quantity: 1
-        }],
-        success_url: orders_url,
-        cancel_url: items_url
-      )
+      if @item.transaction_type == "Sale"
+        session = Stripe::Checkout::Session.create(
+          payment_method_types: ['card'],
+          line_items: [{
+            name: @item.name,
+            images: [@item.photo],
+            amount: @order.amount_cents,
+            currency: 'brl',
+            quantity: 1
+          }],
+          success_url: orders_url,
+          cancel_url: items_url
+        )
+      end
+
+      if @item.transaction_type == "Rental"
+        session = Stripe::Checkout::Session.create(
+          payment_method_types: ['card'],
+          line_items: [{
+            name: @item.name,
+            images: [@item.photo],
+            amount: @order.amount_cents * (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i,
+            currency: 'brl',
+            quantity: 1
+          }],
+          success_url: orders_url,
+          cancel_url: items_url
+        )
+      end
 
       @order.update(checkout_session_id: session.id)
       redirect_to new_order_payment_path(@order)

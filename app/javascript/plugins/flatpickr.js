@@ -6,10 +6,18 @@ import { totalPrice } from '../packs/total_price';
 
 flatpickr(".datepicker", {
   altInput: true
-})
+});
 
 flatpickr("#range_start", {
   altInput: true,
   plugins: [new rangePlugin({ input: "#range_end"})],
   onClose: totalPrice
-})
+});
+
+// require = () => {
+//   const input = document.getElementById('range_start');
+//   console.log(input);
+//   input.setAttributes.required = true;
+// }
+
+// require();
