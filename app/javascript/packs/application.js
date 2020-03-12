@@ -9,6 +9,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { initMapbox } from '../plugins/init_mapbox';
 initMapbox();
 
+import { fields } from './form_fields'
+fields();
+
 import 'plugins/init_select2'
 
 import "../plugins/flatpickr"

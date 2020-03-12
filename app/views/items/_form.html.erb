@@ -10,16 +10,11 @@
         <%= f.input :size %>
         <%= f.input :transaction_type, collection: ["Rental","Sale"], as: :radio_buttons %>
 
-        <%# if :transaction_type == "Rental" %>
-          <%= f.input :start_date %>
-          <%= f.input :end_date %>
-          <%= f.input :price, label: "Price per day" %>
-        <%# end %>
-
-
-        <%# if :transaction_type == "Rental" %>
-          <%= f.input :price %>
-        <%# end %>
+        <div id="conditional_rental" style ="display:none">
+          <%= f.input :start_date, label: "Available from..."%>
+          <%= f.input :end_date, label: "... to" %>
+        </div>
+        <%= f.input :price, label: "Price (per day if rental)" %>
 
         <%= f.input :photo, input_html: { class: 'd-none' }, label_html: { class: 'upload-photo'}, label: '📷 Upload a photo' %>
 
