@@ -1,0 +1,20 @@
+<div class="text-left row">
+  <div class="col-md-12">
+    <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+  </div>
+  <div class="col-md-12">
+    <%= review.comment %>
+  </div>
+  <% if review.user.photo.attached? %>
+    <div class="col-md-12">
+      <%= cl_image_tag review.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <%= review.user.name %>
+    </div>
+  <% else %>
+    <div class="col-md-12">
+      <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <%= review.user.name %>
+    </div>
+  <% end %>
+
+</div>
