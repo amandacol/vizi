@@ -1,9 +1,9 @@
 class WishlistsController < ApplicationController
   before_action :set_wishlist, only: [:destroy]
 
-def index
+  def index
   @user_items = current_user.items
-  @ser_wishlists = current_user.wishlists
+  @user_wishlists = current_user.wishlists
   if params[:query].present?
       @wishlists = policy_scope(Wishlist).search_by_name_and_description(params[:query])
     else

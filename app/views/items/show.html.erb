@@ -1,7 +1,5 @@
 <div class="container mt-4 text-center w-75">
-
   <div class="row d-flex justify-content-center align-items-center pl-4 pr-4">
-
     <div class="col-md-6 mb-3">
       <% if @item.photo.attached? %>
         <%= cl_image_tag @item.photo.key, crop: :fill, class: "avatar-large bg-white" %>
@@ -15,35 +13,26 @@
         <% end %>
       </div>
     </div>
-
     <div class="col-md-6">
-
       <div class="card-show pt-3">
         <h3 class="mb-3"><span class="underline-blue"><%= @item.name %></span></h3>
         <p>Available from <%= @item.start_date %> to <%= @item.end_date %></p>
-
         <div class="d-flex justify-content-center">
           <div class="m-2">
             <h5>Sport</h5>
             <%= render 'sports/card', sport_name: @item.sport.name %>
-
           </div>
-
           <div class="m-2">
             <h5>|</h5>
           </div>
-
           <div class="m-2">
             <h5>Transaction type</h5>
             <p><%= @item.transaction_type %></p>
           </div>
         </div>
-
-
         <div class="mb-3 pl-3 pr-3">
           <p><%= @item.description %></p>
         </div>
-
         <% if @item.transaction_type == "Sale" %>
           <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <%= @item.price %></h4>
           <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
@@ -51,71 +40,71 @@
           <% end %>
         <% end %>
 
-          <% if @item.transaction_type == "Rental" %>
-            <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
-          <% end %>
-
-          <% if @item.transaction_type == "Rental" %>
-            <div class="pl-5 pr-5">
-              <h5>When to when?</h5>
-              <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
-                <%= s.input :extent, input_html: { required: true, id: "range_start", class: "bg-white"}, placeholder: "Select dates here" %>
-                <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
-              <% end %>
-              <p id="total">Total: </p>
-            </div>
-          <% end %>
-
-
-        <div class="card-show-infos">
-          <img src="https://images.unsplash.com/photo-1518655061710-5ccf392c275a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" class="card-item-user avatar-bordered">
-          <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
-          <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
-        </div>
-      </div>
-
-
-
-      <div class="d-flex justify-content-center mt-2">
-        <% if current_user == @item.user %>
-          <p class="mr-4"><%=link_to '<i class="far fa-edit"></i> Edit'.html_safe, edit_item_path(@item.id)%></p>
-          <p class="ml-4"><%= link_to '<i class="far fa-trash-alt"></i> Delete'.html_safe, item_path(@item.id), method: :delete, data: { confirm: 'Are you sure?' }%> </p>
+        <% if @item.transaction_type == "Rental" %>
+          <h4 class="bg-light rounded-sm mt-2 p-2 mb-3">R$ <span id="rent_price"> <%= @item.price %> </span> per day</h4>
         <% end %>
+        <% if @item.transaction_type == "Rental" %>
+          <div class="pl-5 pr-5">
+            <h5>When to when?</h5>
+            <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
+              <%= s.input :extent, input_html: { id: "range_start", class: "bg-white", required: true }, placeholder: "Select dates here" %>
+              <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+            <% end %>
+            <p id="total">Total: </p>
+          </div>
+      <% end %>
+      <div class="card-show-infos">
+        <% if @item.user.photo.attached? %>
+        <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% else %>
+        <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% end %>
+        <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
+        <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
       </div>
-
     </div>
-
+    <div class="d-flex justify-content-center mt-2">
+      <% if current_user == @item.user %>
+      <p class="mr-4"><%=link_to '<i class="far fa-edit"></i> Edit'.html_safe, edit_item_path(@item.id)%></p>
+      <p class="ml-4"><%= link_to '<i class="far fa-trash-alt"></i> Delete'.html_safe, item_path(@item.id), method: :delete, data: { confirm: 'Are you sure?' }%> </p>
+      <% end %>
+    </div>
+  </div>
   <div>
     <% @reviews.last&.tap do |review| %>
-      <%= review.comment %>
-      <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+    <% if review.user.photo.attached? %>
+    <%= cl_image_tag review.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+    <% else %>
+    <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
     <% end %>
-
+    <%= review.user.name %>
+    <%= review.comment %>
+    <%= (1..review.star.to_i).map {|_star| '<i class="fas fa-star"></i>' }.join.html_safe %>
+    <% end %>
+    <% if current_user == @item.user %>
     <%= form_for([@item, @review]) do |f| %>
-      <% if @review.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
-          <ul>
-          <% @review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="field">
-        <%= f.label :comment %><br>
-        <%= f.text_area :comment %><br>
-      </div>
-      <div class="field">
-        <%= f.select :star, 1..5 %><br>
-      </div>
-      <div class="actions">
-        <%= f.submit %>
-      </div>
+    <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <div class="field">
+      <%= f.label :comment %><br>
+      <%= f.text_area :comment %><br>
+    </div>
+    <div class="field">
+      <%= f.select :star, 1..5 %><br>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
     <% end %>
   </div>
-
 </div>
-
-
+</div>
