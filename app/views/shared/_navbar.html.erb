@@ -5,30 +5,24 @@
   <div class="d-inline-flex">
   <% if current_user.orders.any? %>
   <%= link_to orders_path do %>
-  <svg class="mr-3 mt-2" data-toggle="tooltip" data-placement="left" title="Your orders" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32"
-  viewBox="0 0 172 172" style=" fill:#000000;">
-  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
-  stroke-linecap="butt" stroke-linejoin="miter"
-  stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-  font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-  <path d="M0,172v-172h172v172z" fill="none"></path>
-  <g fill="#f7f447">
-  <path d="M86,16.125c-14.76026,0 -26.875,12.11474 -26.875,26.875v5.375h-26.53906l-0.33594,5.03906l-5.375,96.75l-0.33594,5.71094h118.92188l-0.33594,-5.71094l-5.375,-96.75l-0.33594,-5.03906h-26.53906v-5.375c0,-14.76026 -12.11474,-26.875 -26.875,-26.875zM86,26.875c8.90234,0 16.125,7.22266 16.125,16.125v5.375h-32.25v-5.375c0,-8.90234 7.22266,-16.125 16.125,-16.125zM42.66406,59.125h16.46094v16.125h10.75v-16.125h32.25v16.125h10.75v-16.125h16.46094l4.70313,86h-96.07812z"></path>
-  </g></g></svg>
+  <svg class="mr-3 mt-2" data-toggle="tooltip" data-placement="left" title="Wishlist" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  width="32" height="32"
+  viewBox="0 0 172 172"
+  style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M86,16.125c-14.76026,0 -26.875,12.11474 -26.875,26.875v5.375h-26.53906l-0.33594,5.03906l-5.375,96.75l-0.33594,5.71094h118.92188l-0.33594,-5.71094l-5.375,-96.75l-0.33594,-5.03906h-26.53906v-5.375c0,-14.76026 -12.11474,-26.875 -26.875,-26.875zM86,26.875c8.90234,0 16.125,7.22266 16.125,16.125v5.375h-32.25v-5.375c0,-8.90234 7.22266,-16.125 16.125,-16.125zM42.66406,59.125h16.46094v16.125h10.75v-16.125h32.25v16.125h10.75v-16.125h16.46094l4.70313,86h-96.07812z"></path></g></g></svg>
   <% end %>
   <% end %>
   <% if current_user.wishlists.any? %>
   <%= link_to wishlists_path do %>
-  <svg class="mr-3 mt-2" data-toggle="tooltip" data-placement="left" title="Wishlist" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  <svg class="mr-3 mt-2" data-toggle="tooltip" data-placement="left" title="Your orders" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
   width="32" height="32"
   viewBox="0 0 172 172"
-  style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#f7f447"><path d="M86,151.33984l-2.6875,-1.57471c-2.75049,-1.5747 -67.1875,-39.40967 -67.1875,-79.89014c0,-20.74414 16.88086,-37.625 37.625,-37.625c13.66846,0 25.65723,7.32764 32.25,18.2666c6.59278,-10.93897 18.58154,-18.2666 32.25,-18.2666c20.74414,0 37.625,16.88086 37.625,37.625c0,40.48047 -64.43701,78.31543 -67.1875,79.89014zM53.75,43c-14.82324,0 -26.875,12.05176 -26.875,26.875c0,30.1294 47.22021,61.51856 59.125,68.95117c11.90479,-7.43261 59.125,-38.82178 59.125,-68.95117c0,-14.82324 -12.05176,-26.875 -26.875,-26.875c-14.82324,0 -26.875,12.05176 -26.875,26.875h-10.75c0,-14.82324 -12.05176,-26.875 -26.875,-26.875z"></path></g></g></svg>
+  style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M86,151.33984l-2.6875,-1.57471c-2.75049,-1.5747 -67.1875,-39.40967 -67.1875,-79.89014c0,-20.74414 16.88086,-37.625 37.625,-37.625c13.66846,0 25.65723,7.32764 32.25,18.2666c6.59278,-10.93897 18.58154,-18.2666 32.25,-18.2666c20.74414,0 37.625,16.88086 37.625,37.625c0,40.48047 -64.43701,78.31543 -67.1875,79.89014zM53.75,43c-14.82324,0 -26.875,12.05176 -26.875,26.875c0,30.1294 47.22021,61.51856 59.125,68.95117c11.90479,-7.43261 59.125,-38.82178 59.125,-68.95117c0,-14.82324 -12.05176,-26.875 -26.875,-26.875c-14.82324,0 -26.875,12.05176 -26.875,26.875h-10.75c0,-14.82324 -12.05176,-26.875 -26.875,-26.875z"></path></g></g></svg>
   <% end %>
   <li class="nav-item dropdown list-unstyled">
     <% if current_user.photo.attached? %>
-      <%= cl_image_tag current_user.photo.key, crop: :fill, class: "avatar dropdown-toggle avatar-bordered mt-1", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <%= cl_image_tag current_user.photo.key, crop: :fill, class: "avatar dropdown-toggle avatar-bordered-white mt-1", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
     <% else %>
-      <%= image_tag 'user.png', crop: :fill, class: "avatar dropdown-toggle avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <%= image_tag 'user.png', crop: :fill, class: "avatar dropdown-toggle avatar-bordered-white", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
     <% end %>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
       <%= link_to "See all items", items_path, class: "dropdown-item text-secondary" %>

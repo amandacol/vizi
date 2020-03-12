@@ -32,3 +32,11 @@
   object-fit: cover;
   border-radius: 256px;
 }
+
+.avatar-bordered-white {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: white 2px solid;
+}
