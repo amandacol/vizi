@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_190947) do
     t.boolean "delivered", default: false
     t.string "rent_start_date"
     t.string "rent_end_date"
-    t.string "duration"
     t.string "extent"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -118,13 +117,13 @@ ActiveRecord::Schema.define(version: 2020_03_11_190947) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.string "name"
     t.string "surname"
     t.string "address"
     t.string "description"
     t.string "photo"
-    t.float "latitude"
-    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
