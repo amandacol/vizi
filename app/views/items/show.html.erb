@@ -60,7 +60,16 @@
               <%= s.input :extent, input_html: { id: "range_start", class: "bg-white", required: true }, placeholder: "Select dates here" %>
               <%= s.submit "Add to the cart", disabled: true, class: "btn btn-primary m-3 disabled", id: "btn-add-rent" %>
             <% end %>
+
+            <ul class="hidden">
+              <% @dates.each do |date| %>
+                <li class="dates" data-datefrom="<%= date[:from] %>" data-dateto="<%= date[:to]%>">
+                </li>
+              <% end %>
+            </ul>
+
             <p id="total">Total: </p>
+
           </div>
       <% end %>
       <div class="card-show-infos">
@@ -113,4 +122,3 @@
   <% end %>
   </div>
 </div>
-

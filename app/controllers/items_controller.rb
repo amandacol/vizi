@@ -63,6 +63,7 @@ class ItemsController < ApplicationController
     @wishlist = Wishlist.new
     @reviews = @item.reviews
     @review = Review.new
+    @dates = @item.calculate_date
   end
 
   def edit
