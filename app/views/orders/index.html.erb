@@ -28,7 +28,11 @@
     <div class="card-item-infos text-center">
       <h2><%= link_to order.item.name, item_path(order.item)%></h2>
       <p><%= order.item.sport.name %></p>
-      <h2>R$ <%= order.item.price %></h2>
+      <% if order.item.transaction_type == "Sale" %>
+        <h2>R$ <%= order.item.price %></h2>
+      <% else %>
+        <h2>R$ <%= order.item.price %> per day</h2>
+      <% end %>
       <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
     <button id="pay" class="btn btn-primary">Pay Now</button>
       <script src="https://js.stripe.com/v3/"></script>
