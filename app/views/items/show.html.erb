@@ -79,7 +79,7 @@
     <%= render "review_card", review: review %>
   <% end %>
 
-  <% if current_user == @item.user %>
+  <% if current_user != @item.user %>
     <%= form_for([@item, @review]) do |f| %>
       <% if @review.errors.any? %>
         <div id="error_explanation">
