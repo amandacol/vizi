@@ -13,11 +13,3 @@ flatpickr("#range_start", {
   plugins: [new rangePlugin({ input: "#range_end"})],
   onClose: totalPrice
 });
-
-require = () => {
-  const input = document.getElementById('range_start');
-  console.log(input);
-  input.setAttributes.required = true;
-}
-
-require();

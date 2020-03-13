@@ -12,7 +12,7 @@
       <% end %>
     </div>
   </form>
-  <h1 class="text-primary">See your orders</h1>
+  <h1 class="text-primary">Your orders</h1>
 <nav>
   <div class="cards mt-4">
   <% @neighbor_orders.each do |order| %>
@@ -34,17 +34,7 @@
         <h2>R$ <%= order.item.price %> per day</h2>
       <% end %>
       <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
-    <button id="pay" class="btn btn-primary">Pay Now</button>
-      <script src="https://js.stripe.com/v3/"></script>
-      <script>
-        const paymentButton = document.getElementById('pay');
-        paymentButton.addEventListener('click', () => {
-          const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-          stripe.redirectToCheckout({
-            sessionId: '<%= order.checkout_session_id %>'
-          });
-        });
-      </script>
+      <%= link_to "Pay now", item_path(order.item), class: "btn btn-primary" %>
       <% if order.item.user.photo.attached? %>
         <%= cl_image_tag order.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
       <% else %>

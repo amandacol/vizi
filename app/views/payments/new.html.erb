@@ -1,34 +1,49 @@
 <div class="container">
   <div class="row py-4">
-    <div class="col-md-3"><%= image_tag @order.item.photo, width: '100%' %></div>
-    <div class="col">
-      <h1>Checkout summary</h1>
-      <p>Purchase of <strong><%= @order.item.name %>
-      <p>Transaction type: <%= @order.item.transaction_type %></p>
+    <div class="col-md-4">
+        <% if @order.item.photo.attached? %>
+          <%= cl_image_tag @order.item.photo.key, crop: :fill, class: "avatar-large bg-white" %>
+        <% else %>
+          <div class ="avatar-large bg-white">
+            <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
+          </div>
+        <% end %>
+      </div>
+    <div class="col-md-8">
+      <div class="card-show p-3 text-center">
 
-      <% if @order.item.transaction_type == "Rental" %>
-        <p>Rental start date: <%= @order.rent_start_date %></p>
-        <p>Rental end date: <%= @order.rent_end_date %></p>
-        <p><%= (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i %> day(s)</p>
-        <p>Total: <%= humanized_money_with_symbol @order.amount %></p>
-      <% end %>
+        <h1>Checkout summary</h1>
+        <p>Purchase of <span class="text-primary"><%= @order.item.name %></span>
+        <p class="mb-3">Transaction type: <%= @order.item.transaction_type %></p>
 
-      <% if @order.item.transaction_type == "Sale" %>
-        <p>Total: <%= humanized_money_with_symbol @order.amount %></p>
-      <% end %>
+        <% if @order.item.transaction_type == "Rental" %>
+          <p><i class="far fa-calendar-check"></i> Rental start date: <%= @order.rent_start_date %></p>
+          <p><i class="far fa-calendar-times"></i> Rental end date: <%= @order.rent_end_date %></p>
+          <p><i class="far fa-hourglass"></i> <%= (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i %> day(s)</p>
+          <div class="bg-light rounded-sm mt-3 p-2 mb-3 text-center">
+            <h4>Total: <%= humanized_money_with_symbol @order.amount %></h4>
+          </div>
+        <% end %>
 
-      <button id="pay" class="btn btn-primary">Pay Now</button>
-      <%= link_to "Pay Later", items_path, class: "btn btn-primary" %>
-      <script src="https://js.stripe.com/v3/"></script>
-      <script>
-        const paymentButton = document.getElementById('pay');
-        paymentButton.addEventListener('click', () => {
-          const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-          stripe.redirectToCheckout({
-            sessionId: '<%= @order.checkout_session_id %>'
+        <% if @order.item.transaction_type == "Sale" %>
+          <div class="bg-light rounded-sm mt-3 p-2 mb-3 text-center">
+            <h4>Total: <%= humanized_money_with_symbol @order.amount %></h4>
+          </div>
+        <% end %>
+
+        <button id="pay" class="btn btn-primary">Pay Now</button>
+        <%= link_to "Pay Later", items_path, class: "btn btn-primary" %>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+          const paymentButton = document.getElementById('pay');
+          paymentButton.addEventListener('click', () => {
+            const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+            stripe.redirectToCheckout({
+              sessionId: '<%= @order.checkout_session_id %>'
+            });
           });
-        });
-      </script>
+        </script>
+      </div>
     </div>
   </div>
 </div>
