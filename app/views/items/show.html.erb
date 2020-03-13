@@ -58,7 +58,7 @@
               <%= s.submit "Add to the cart", disabled: true, class: "btn btn-primary m-3 disabled", id: "btn-add-rent" %>
             <% end %>
 
-            <ul class="hidden">
+            <ul class="d-none">
               <% @dates.each do |date| %>
                 <li class="dates" data-datefrom="<%= date[:from] %>" data-dateto="<%= date[:to]%>">
                 </li>
