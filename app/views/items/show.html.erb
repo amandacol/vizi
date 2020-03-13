@@ -56,10 +56,13 @@
           </div>
       <% end %>
       <div class="card-show-infos">
-        <% if @item.user.photo.attached? %>
-          <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-        <% else %>
-          <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+
+        <%= link_to user_path(@item.user), :class => "button" do %>
+          <% if @item.user.photo.attached? %>
+            <%= cl_image_tag @item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered"%>
+          <% else %>
+            <%= image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered"%>
+          <% end %>
         <% end %>
         <h2>The owner of this item is: <%= link_to @item.user.name, user_path(@item.user) %></h2>
         <%= link_to "Start chat", users_path, class: "btn btn-vizi" %>
@@ -76,7 +79,7 @@
     <%= render "review_card", review: review %>
   <% end %>
 
-  <% if current_user == @item.user %>
+  <% if current_user != @item.user %>
     <%= form_for([@item, @review]) do |f| %>
       <% if @review.errors.any? %>
         <div id="error_explanation">
