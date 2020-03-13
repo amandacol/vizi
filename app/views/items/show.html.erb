@@ -50,7 +50,7 @@
             <h5>When to when?</h5>
             <%= simple_form_for [@item, @order], wrapper: :inline_form do |s|  %>
               <%= s.input :extent, input_html: { id: "range_start", class: "bg-white", required: true }, placeholder: "Select dates here" %>
-              <%= s.submit "Add to the cart", class: "btn btn-primary m-3" %>
+              <%= s.submit "Add to the cart", disabled: true, class: "btn btn-primary m-3 disabled", id: "btn-add-rent" %>
             <% end %>
             <p id="total">Total: </p>
           </div>

@@ -14,10 +14,10 @@ flatpickr("#range_start", {
   onClose: totalPrice
 });
 
-// require = () => {
-//   const input = document.getElementById('range_start');
-//   console.log(input);
-//   input.setAttributes.required = true;
-// }
+require = () => {
+  const input = document.getElementById('range_start');
+  console.log(input);
+  input.setAttributes.required = true;
+}
 
-// require();
+require();
