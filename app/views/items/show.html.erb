@@ -1,3 +1,8 @@
+<style>
+  #content-wrap{
+    padding-bottom: 4em;
+  }
+</style>
 <div class="container mt-4 text-center w-75">
   <div class="row d-flex justify-content-center align-items-center pl-4 pr-4">
     <div class="col-md-6 mb-3">
@@ -95,11 +100,11 @@
         <%= f.label :comment %><br>
         <%= f.text_area :comment %><br>
       </div>
-      <div class="field">
+      <div class="fas fa-star">
         <%= f.select :star, 1..5 %><br>
       </div>
       <div class="actions">
-        <%= f.submit %>
+        <%= f.submit 'Create Review', :class => "btn btn-vizi" %>
       </div>
     <% end %>
   <% end %>
