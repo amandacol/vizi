@@ -7,24 +7,23 @@
       <%= link_to "Login", new_user_session_path, class: "nav-link" %>
     </div>
   <% else %>
-
   <div class="d-inline-flex">
      <%= link_to items_path, class:"alignicon" do %>
       <%= image_tag "search.png" %>
      <% end %>
-  
+
     <% if current_user.orders.any? %>
       <%= link_to orders_path, class:"mr-3 mt-2 ml-1" do %>
        <%= image_tag "shopping-bag.png" %>
       <% end %>
     <% end %>
-  
+
     <% if current_user.wishlists.any? %>
       <%= link_to wishlists_path, class:"mr-3 mt-2" do %>
        <%= image_tag "heart.png" %>
       <% end %>
     <% end %>
-  
+
     <div class="nav-item dropdown list-unstyled">
       <% if current_user.photo.attached? %>
         <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle avatar-bordered-white mt-1", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
@@ -38,4 +37,5 @@
       </div>
     </div>
   <% end %>
+</div>
 </div>
