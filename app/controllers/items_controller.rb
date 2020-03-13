@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     @item.latitude = current_user.latitude
     @item.longitude = current_user.longitude
 
-    if @item.save!
+    if @item.save
       redirect_to items_path
     else
       render :new

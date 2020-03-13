@@ -104,7 +104,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent)
+    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent, :state)
   end
 
   def filter_params
