@@ -1,7 +1,10 @@
 class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      # scope = Item
+      paid_orders = Order.where(state: 'paid').pluck(:id)
+      no_go_items = Item.includes(:orders).where(transaction_type: "Sale", orders: { id: paid_orders }).pluck(:id)
+      scope.where.not(id: no_go_items)
     end
   end
 
