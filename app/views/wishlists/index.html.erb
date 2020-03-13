@@ -26,7 +26,11 @@
     <div class="card-item-infos text-center">
       <h2><%= link_to wishlist.item.name, item_path(wishlist.item)%></h2>
       <p><%= wishlist.item.sport.name %></p>
-      <h2>R$ <%= wishlist.item.price %></h2>
+      <% if wishlist.item.transaction_type == "Sale" %>
+        <h2>R$ <%= wishlist.item.price %></h2>
+      <% else %>
+        <h2>R$ <%= wishlist.item.price %> per day</h2>
+      <% end %>
       <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, item_wishlist_path(wishlist.item.id, wishlist.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
       <% if wishlist.item.user.photo.attached? %>
         <%= cl_image_tag wishlist.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
