@@ -40,7 +40,6 @@ class OrdersController < ApplicationController
 
       if @item.transaction_type == "Rental"
         @order.extent = order_params[:extent]
-        byebug
         @order.rent_start_date = Date.strptime(@order.extent.split(" ")[0], '%m-%d-%Y')
         @order.rent_end_date = Date.strptime(@order.extent.split(" ")[2], '%m-%d-%Y')
 

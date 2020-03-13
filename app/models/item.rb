@@ -19,7 +19,8 @@ class Item < ApplicationRecord
     }
 
   def calculate_date
-    orders.includes(:item).map do |order|
+    #orders.where(state: 'paid').map do |order|
+    orders.map do |order|
       {
         from: start_date.strftime("%m-%d-%Y"),
         to: end_date.strftime("%m-%d-%Y")
