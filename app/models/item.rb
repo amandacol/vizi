@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   has_many :reviews, dependent: :destroy
   monetize :price_cents
   validates :transaction_type, inclusion: { in: ["Rental","Sale"], allow_nil: false }
-
-
+  validates :description, length: { maximum: 290 }
+  validates :name, length: { maximum: 25 }
   geocoded_by :address
 
   include PgSearch::Model
