@@ -9,6 +9,7 @@ gem 'puma'
 gem 'rails', '5.2.4.1'
 gem 'redis'
 gem 'stripe'
+gem 'stripe_event'
 gem 'money-rails'
 
 
