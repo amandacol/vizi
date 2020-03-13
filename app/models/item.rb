@@ -17,4 +17,13 @@ class Item < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
+
+  def calculate_date
+    orders.includes(:item).map do |order|
+      {
+        from: start_date.strftime("%m-%d-%Y"),
+        to: end_date.strftime("%m-%d-%Y")
+      }
+    end
+  end
 end
