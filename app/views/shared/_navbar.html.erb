@@ -12,17 +12,13 @@
         <%= image_tag "search.png" %>
        <% end %>
 
-      <% if current_user.orders.any? %>
         <%= link_to orders_path, class:"mr-3 mt-2 ml-1" do %>
          <%= image_tag "shopping-bag.png" %>
         <% end %>
-      <% end %>
 
-      <% if current_user.wishlists.any? %>
         <%= link_to wishlists_path, class:"mr-3 mt-2" do %>
          <%= image_tag "heart.png" %>
         <% end %>
-      <% end %>
 
       <div class="nav-item dropdown list-unstyled">
         <% if current_user.photo.attached? %>
