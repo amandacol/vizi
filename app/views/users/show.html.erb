@@ -14,10 +14,6 @@
           <% end %>
         </div>
         <div class="text"><%= @user.description %></div>
-        <div class="cont-items">
-          <p><%="#{} itens lended"%></p>
-          <p><%="#{} itens borrowed"%></p>
-        </div>
         <% if current_user == @user %>
           <div class="edit"><%= link_to 'Edit  ''<i class="fas fa-user-edit"></i>'.html_safe, edit_user_registration_path%></div>
         <%end%>
@@ -26,8 +22,8 @@
 
 
     <div class="col-7">
-        <div class="container d-flex justify-content-between">
-          <div class="cards ">
+        <div class="d-flex justify-content-between">
+          <div class="cards mt-0">
             <% @items.each do |item| %>
               <div class="card-item">
                 <div class="card-item-display">
@@ -39,8 +35,8 @@
                 </div>
                 <div class="card-item-hover">
                   <h2 ><%= link_to item.name, item_path(item)%></h2>
-                  <div class="container d-flex justify-content-center"><%= render 'sports/card', sport_name: item.sport.name %></div>
-                  <h2 class="container d-flex justify-content-center">R$ <%= item.price %></h2>
+                  <div class="d-flex justify-content-center"><%= render 'sports/card', sport_name: item.sport.name %></div>
+                  <h2 class="d-flex justify-content-center">R$ <%= item.price %></h2>
                   <% if current_user != @user %>
                     <%= simple_form_for [item, Order.new] do |s|  %>
                     <%= s.submit "Add to the cart", class: "btn btn-vizi mt-2" %>
