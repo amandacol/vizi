@@ -22,6 +22,7 @@
         </div>
         <div class="card-item-hover">
           <h2><%= link_to user.name, user_path(user)%></h2>
+          <p><%= link_to user.surname, user_path(user)%></p>
           <% if user.photo.attached? %>
             <%= cl_image_tag user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <% else %>
