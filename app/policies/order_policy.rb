@@ -1,7 +1,7 @@
 class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where.not(state: 'paid').where(user: user)
     end
   end
 

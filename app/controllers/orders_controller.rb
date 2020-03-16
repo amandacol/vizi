@@ -8,14 +8,9 @@ class OrdersController < ApplicationController
 
   def index
     @user_items = current_user.items
-    @neighbor_orders = current_user.orders
+    @neighbor_orders = policy_scope(Order)
     @user_wishlists = current_user.wishlists
-    if params[:query].present?
-      @orders = policy_scope(Order).search_by_name_and_description(params[:query])
-    else
-      @orders = policy_scope(Order)
-    end
-    @orders = @orders.order(created_at: :desc)
+
   end
 
   def create
@@ -47,12 +42,13 @@ class OrdersController < ApplicationController
 
       @order.save
 
+
       if @item.transaction_type == "Sale"
         session = Stripe::Checkout::Session.create(
           payment_method_types: ['card'],
           line_items: [{
             name: @item.name,
-            images: [@item.photo],
+            images: [@item.photo.service_url],
             amount: @order.amount_cents,
             currency: 'brl',
             quantity: 1
@@ -67,7 +63,7 @@ class OrdersController < ApplicationController
           payment_method_types: ['card'],
           line_items: [{
             name: @item.name,
-            images: [@item.photo],
+            images: [@item.photo.service_url],
             amount: @order.amount_cents * (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i,
             currency: 'brl',
             quantity: 1
@@ -105,7 +101,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent)
+    params.require(:order).permit(:date, :rent_start_date, :rent_end_date, :extent, :state)
   end
 
   def filter_params

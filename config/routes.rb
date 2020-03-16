@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
   devise_for :users, :controllers => { :registrations => :registrations }
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -13,6 +14,5 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :edit, :update, :destroy] do
     resources :payments, only: :new
   end
-  end
-
+end
 

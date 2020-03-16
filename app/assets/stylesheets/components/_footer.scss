@@ -1,10 +1,9 @@
 .footer {
- color: white;
+  color: white;
   justify-content: space-between;
   background: $blue;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  height: 80px;
-  padding: 0px 50px;
+  padding: 10px 50px;
   width: 100%;
   left: 0;
   display: flex;
@@ -13,9 +12,14 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 3rem;
-
 }
+
+@media (min-width: $screen-xs) and (max-width: $screen-sm) {
+  .footer {
+    padding: 0 30px;
+  }
+}
+
 .footer-links {
   display: flex;
   align-items: center;
@@ -42,6 +46,7 @@
 #content-wrap {
   padding-bottom: 3rem;    /* Footer height */
 }
+
 
 
 
