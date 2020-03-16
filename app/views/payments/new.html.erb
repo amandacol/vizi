@@ -32,7 +32,6 @@
         <% end %>
 
         <button id="pay" class="btn btn-primary">Pay Now</button>
-        <%= link_to "Pay Later", items_path, class: "btn btn-primary" %>
         <script src="https://js.stripe.com/v3/"></script>
         <script>
           const paymentButton = document.getElementById('pay');

@@ -42,12 +42,13 @@ class OrdersController < ApplicationController
 
       @order.save
 
+
       if @item.transaction_type == "Sale"
         session = Stripe::Checkout::Session.create(
           payment_method_types: ['card'],
           line_items: [{
             name: @item.name,
-            images: [@item.photo],
+            images: [@item.photo.service_url],
             amount: @order.amount_cents,
             currency: 'brl',
             quantity: 1
@@ -62,7 +63,7 @@ class OrdersController < ApplicationController
           payment_method_types: ['card'],
           line_items: [{
             name: @item.name,
-            images: [@item.photo],
+            images: [@item.photo.service_url],
             amount: @order.amount_cents * (Date.parse(@order.rent_end_date) - Date.parse(@order.rent_start_date)).to_i,
             currency: 'brl',
             quantity: 1
