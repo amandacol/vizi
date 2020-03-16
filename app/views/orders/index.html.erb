@@ -3,58 +3,59 @@
   <form>
     <div class="input-group mb-3">
         <%= form_tag items_path, method: :get do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control",
-          placeholder: "Look for any sport item"
-        %>
-      <%= submit_tag 'Search', class: "btn btn-primary ml-2" %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Look for any sport item"
+          %>
+        <%= submit_tag 'Search', class: "btn btn-primary ml-2" %>
       <% end %>
     </div>
   </form>
   <h1 class="text-primary">Your orders</h1>
-<nav>
-  <div class="cards mt-4">
-  <% @neighbor_orders.each do |order| %>
-  <div class="card-item" >
-    <div class="card-item-display">
-      <% if order.item.photo.attached? %>
-      <%= cl_image_tag order.item.photo.key, width: 200, height: 200, crop: :fill %>
-      <% else %>
-      <img src="https://images.unsplash.com/photo-1531722569936-825d3dd91b15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
-      <% end %>
-  </div>
-  <div class="card-item-hover">
-    <div class="card-item-infos text-center">
-      <h2><%= link_to order.item.name, item_path(order.item)%></h2>
-      <p><%= order.item.sport.name %></p>
-      <% if order.item.transaction_type == "Sale" %>
-        <h2>R$ <%= order.item.price %></h2>
-      <% else %>
-        <h2>R$ <%= order.item.price %> per day</h2>
-      <% end %>
-      <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
-      <button id="pay" class="btn btn-primary">Pay Now</button>
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-          const paymentButton = document.getElementById('pay');
-          paymentButton.addEventListener('click', () => {
-            const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-            stripe.redirectToCheckout({
-              sessionId: '<%= order.checkout_session_id %>'
-            });
-          });
-        </script>
-      <% if order.item.user.photo.attached? %>
-        <%= cl_image_tag order.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-      <% else %>
-        <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-      <% end %>
+  <script src="https://js.stripe.com/v3/"></script>
+  <nav>
+    <div class="cards mt-4">
+      <% @neighbor_orders.each do |order| %>
+        <div class="card-item" >
+          <div class="card-item-display">
+            <% if order.item.photo.attached? %>
+              <%= cl_image_tag order.item.photo.key, width: 200, height: 200, crop: :fill %>
+            <% else %>
+              <img src="https://images.unsplash.com/photo-1531722569936-825d3dd91b15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
+            <% end %>
+          </div>
 
+          <div class="card-item-hover">
+            <div class="card-item-infos text-center">
+              <h2><%= link_to order.item.name, item_path(order.item)%></h2>
+              <p><%= order.item.sport.name %></p>
+              <% if order.item.transaction_type == "Sale" %>
+                <h2>R$ <%= order.item.price %></h2>
+              <% else %>
+                <h2>R$ <%= order.item.price %> per day</h2>
+              <% end %>
+
+              <%= link_to '<i class="far fa-trash-alt ml-2"></i>'.html_safe, order_path(order.id), method: :delete, data: { confirm: 'Are you sure?' }%></p>
+              <button id="pay-<%= order.id %>" class="btn btn-primary">Pay Now</button>
+              <script>
+                document.getElementById('pay-<%= order.id %>').addEventListener('click', () => {
+                  const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+                  stripe.redirectToCheckout({
+                    sessionId: '<%= order.checkout_session_id %>'
+                    });
+                });
+              </script>
+
+              <% if order.item.user.photo.attached? %>
+                <%= cl_image_tag order.item.user.photo.key, crop: :fill, class:"card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+              <% else %>
+                <%= cl_image_tag 'user.png', crop: :fill, class: "card-item-user avatar-bordered", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <%end%>
     </div>
   </div>
-</div>
-<%end%>
-</div>
-</div>
 </div>
