@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
 
   has_many :orders
-  has_many :wishlists
+  has_many :wishlists, dependent: :destroy
 
   has_many :user_sports
   has_many :sports, through: :user_sports

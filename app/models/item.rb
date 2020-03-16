@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   belongs_to :sport
   has_many :orders, dependent: :destroy
   has_one_attached :photo
-  has_many :wishlists
+  has_many :wishlists, dependent: :destroy
   has_many :reviews, dependent: :destroy
   monetize :price_cents
   validates :transaction_type, inclusion: { in: ["Rental","Sale"], allow_nil: false }
